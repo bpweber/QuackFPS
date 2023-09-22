@@ -18,7 +18,7 @@ public class PlayerAmmo : MonoBehaviour
     {
         wepHolder = other.transform.GetChild(0).GetChild(4).GetChild(3);
         rcs = wepHolder.GetChild(wepIndex).GetComponent<RaycastShoot>();
-        if(rcs.ammo < rcs.maxAmmo)
+        if(rcs.ammo < rcs.maxAmmo * 2)
             StartCoroutine(rcs.Reload());
         Debug.Log("Reload" + wepIndex);
     }

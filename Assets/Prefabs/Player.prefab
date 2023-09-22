@@ -800,7 +800,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ccffbf2e4bcdaa741a8a80f611d65e82, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4041d74ff24dd8f4c92e939163f4bee9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2282,16 +2282,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 7291320045962233471}
+  groundCheck: {fileID: 2625741636591121942}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
   walkingSpeed: 4
   sprintingSpeed: 8
   gravity: -9.81
   jumpHeight: 1.5
   jumpSpeed: 2
-  groundCheck: {fileID: 2625741636591121942}
   groundDistance: 0.4
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
   isGrounded: 0
 --- !u!114 &6826897991925808543
 MonoBehaviour:
@@ -2388,7 +2388,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ccffbf2e4bcdaa741a8a80f611d65e82, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4041d74ff24dd8f4c92e939163f4bee9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2484,7 +2484,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8dd26280c914fe449beb0835ac15c3b7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7e839b5011648fc41a9d6f370a55af3f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2897,10 +2897,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LG
       objectReference: {fileID: 0}
-    - target: {fileID: 8412177371676914209, guid: f82d53a938fe7224aa68664de0827e22, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2927,10 +2923,6 @@ PrefabInstance:
     - target: {fileID: 2136347838388024428, guid: 80a2334c91434ed4f800d982bb924420, type: 3}
       propertyPath: m_Name
       value: Rail
-      objectReference: {fileID: 0}
-    - target: {fileID: 2136347838388024428, guid: 80a2334c91434ed4f800d982bb924420, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4816377652919693400, guid: 80a2334c91434ed4f800d982bb924420, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2973,9 +2965,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8934650528195045365, guid: 80a2334c91434ed4f800d982bb924420, type: 3}
+      propertyPath: ammo
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8934650528195045365, guid: 80a2334c91434ed4f800d982bb924420, type: 3}
+      propertyPath: maxAmmo
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8934650528195045365, guid: 80a2334c91434ed4f800d982bb924420, type: 3}
       propertyPath: playerCam
       value: 
       objectReference: {fileID: 222752782054841611}
+    - target: {fileID: 8934650528195045365, guid: 80a2334c91434ed4f800d982bb924420, type: 3}
+      propertyPath: maxInnacuracyMultiplier
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3000,19 +3004,11 @@ PrefabInstance:
     m_TransformParent: {fileID: 1296902362924798128}
     m_Modifications:
     - target: {fileID: 1217854075384609940, guid: 52172e27212823b4eb6042f1ae28dcc2, type: 3}
-      propertyPath: ammo
-      value: 33
-      objectReference: {fileID: 0}
-    - target: {fileID: 1217854075384609940, guid: 52172e27212823b4eb6042f1ae28dcc2, type: 3}
-      propertyPath: maxAmmo
-      value: 33
-      objectReference: {fileID: 0}
-    - target: {fileID: 1217854075384609940, guid: 52172e27212823b4eb6042f1ae28dcc2, type: 3}
       propertyPath: playerCam
       value: 
       objectReference: {fileID: 222752782054841611}
     - target: {fileID: 1217854075384609940, guid: 52172e27212823b4eb6042f1ae28dcc2, type: 3}
-      propertyPath: canReloadWithR
+      propertyPath: maxInnacuracyMultiplier
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1670459246620528828, guid: 52172e27212823b4eb6042f1ae28dcc2, type: 3}
@@ -3062,10 +3058,6 @@ PrefabInstance:
     - target: {fileID: 5452539063168860760, guid: 52172e27212823b4eb6042f1ae28dcc2, type: 3}
       propertyPath: m_Name
       value: G19
-      objectReference: {fileID: 0}
-    - target: {fileID: 5452539063168860760, guid: 52172e27212823b4eb6042f1ae28dcc2, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

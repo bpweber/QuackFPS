@@ -155,14 +155,23 @@ public class RaycastShoot : NetworkBehaviour
 
     public IEnumerator Reload()
     {
-        isReloading = true;
-        reloadSound.Play();
-        yield return new WaitForSeconds(0.1f);
-        transform.GetChild(0).localPosition = new Vector3(slidePos.x - 25, slidePos.y, slidePos.z);
-        yield return new WaitForSeconds(0.5f);
-        transform.GetChild(0).localPosition = slidePos;
-        yield return new WaitForSeconds(0.3f);
-        ammo = maxAmmo;
-        isReloading = false;
+        if (!isReloading) {
+            isReloading = true;
+            reloadSound.Play();
+            yield return new WaitForSeconds(0.1f);
+            transform.GetChild(0).localPosition = new Vector3(slidePos.x - 25, slidePos.y, slidePos.z);
+            yield return new WaitForSeconds(0.5f);
+            transform.GetChild(0).localPosition = slidePos;
+            yield return new WaitForSeconds(0.3f);
+            if (ammo < maxAmmo)
+                ammo = maxAmmo;
+            else if (ammo < maxAmmo * 1.5)
+                ammo += (maxAmmo / 2);
+            else
+                ammo += (maxAmmo / 10);
+            if (ammo > maxAmmo * 2)
+                ammo = maxAmmo * 2;
+            isReloading = false;
+        }
     }
 }

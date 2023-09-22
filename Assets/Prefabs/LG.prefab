@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: 2041904265344147961}
   - component: {fileID: 7349400249556342450}
   - component: {fileID: 4353176939825792897}
-  - component: {fileID: 4706410182568461630}
   - component: {fileID: 7774869359655805327}
+  - component: {fileID: 4706410182568461630}
   - component: {fileID: 7430942635178910441}
   - component: {fileID: 8904912408839994846}
   m_Layer: 0
@@ -120,6 +120,31 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7774869359655805327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8412177371676914209}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22e96f65c06bd9b428be8e912b9f76bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunDamage: 3.3
+  headShotDamage: 4.4
+  fireRate: 0.06
+  maxInnacuracyMultiplier: 0.25
+  fullAuto: 1
+  ammo: 100
+  maxAmmo: 100
+  canReloadWithR: 0
+  gunEnd: {fileID: 8330275295044463495}
+  bulletHole: {fileID: 1290393447114875649, guid: 09a5cf7e806004943b24157be9473be1, type: 3}
+  playerCam: {fileID: 0}
+  gunAudio: {fileID: 4706410182568461630}
+  reloadSound: {fileID: 7430942635178910441}
 --- !u!82 &4706410182568461630
 AudioSource:
   m_ObjectHideFlags: 0
@@ -130,7 +155,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0e3c0b2b2948bf04fb9632177d89bb6b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ad8b647eebefaca40b10334d473fde49, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.25
   m_Pitch: 1.1
@@ -216,31 +241,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7774869359655805327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8412177371676914209}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22e96f65c06bd9b428be8e912b9f76bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunDamage: 3.3
-  headShotDamage: 4.4
-  fireRate: 0.06
-  maxInnacuracyMultiplier: 0.25
-  fullAuto: 1
-  gunEnd: {fileID: 8330275295044463495}
-  bulletHole: {fileID: 1290393447114875649, guid: 09a5cf7e806004943b24157be9473be1, type: 3}
-  playerCam: {fileID: 0}
-  gunAudio: {fileID: 4706410182568461630}
-  reloadSound: {fileID: 7430942635178910441}
-  ammo: 100
-  maxAmmo: 100
-  canReloadWithR: 0
 --- !u!82 &7430942635178910441
 AudioSource:
   m_ObjectHideFlags: 0
@@ -251,7 +251,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f38258488e0ca374b9d0d8111b64bd63, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 78b04f5812b09fa448f415407b05c0ea, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
