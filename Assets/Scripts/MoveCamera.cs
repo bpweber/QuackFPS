@@ -11,14 +11,12 @@ public class MoveCamera : MonoBehaviour
     private float lastChange = 0;
     Vector3 newPos;
 
-    // Start is called before the first frame update
     void Start()
     {
         lastChange = Time.time;
         ogCamPos = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(Time.time > (lastChange + moveSecs))

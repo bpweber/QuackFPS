@@ -4,9 +4,8 @@ using System.Net;
 using Unity.Netcode;
 using UnityEngine;
 
-public class WeaponSwitcher : NetworkBehaviour//MonoBehaviour
+public class WeaponSwitcher : NetworkBehaviour
 {
-
     public int activeWep = 0;
 
     public GameObject G19;
@@ -14,7 +13,6 @@ public class WeaponSwitcher : NetworkBehaviour//MonoBehaviour
     public GameObject Rail;
 
     private GameObject[] weps = new GameObject[3];
-
     private bool isSwitching = false;
 
     private void Start()
@@ -28,36 +26,20 @@ public class WeaponSwitcher : NetworkBehaviour//MonoBehaviour
     {
         if (!IsOwner) return;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
+        if (Input.GetKeyDown(KeyCode.Alpha1))       
             if (!isSwitching)
-                SwitchWeapon(0);
-                //StartCoroutine(SwitchToWeapon(0));
-        }
+                SwitchWeapon(0);       
         if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
             if (!isSwitching)
-                SwitchWeapon(1);
-            //StartCoroutine(SwitchToWeapon(1));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
+                SwitchWeapon(1); 
+        if (Input.GetKeyDown(KeyCode.Alpha3))  
             if (!isSwitching)
-                SwitchWeapon(2);
-            //StartCoroutine(SwitchToWeapon(2));
-        }
+                SwitchWeapon(2);       
     }
-
 
     public void SwitchWeapon(int wep)
     {
         SwitchWeaponServerRpc(wep);
-    }
-    
-    [ClientRpc]
-    public void SwitchWeaponClientRpc(int wep)
-    {
-        StartCoroutine(SwitchToWeapon(wep));
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -65,9 +47,13 @@ public class WeaponSwitcher : NetworkBehaviour//MonoBehaviour
     {
         SwitchWeaponClientRpc(wep);
     }
- 
 
-    //private void SwitchToWeapon(GameObject wep)
+    [ClientRpc]
+    public void SwitchWeaponClientRpc(int wep)
+    {
+        StartCoroutine(SwitchToWeapon(wep));
+    }
+
     private IEnumerator SwitchToWeapon(int wepIndex)
     {
         if (!weps[wepIndex].GetComponent<Renderer>().enabled)
@@ -85,8 +71,6 @@ public class WeaponSwitcher : NetworkBehaviour//MonoBehaviour
 
     private void DeselectAllWeapons()
     {
-        //GameObject[] wepList = { G19, LG, Rail };
-
         foreach (GameObject wep in weps)
         {
             wep.GetComponent<Renderer>().enabled = false;

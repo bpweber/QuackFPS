@@ -4,24 +4,22 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerMovement : NetworkBehaviour  //MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
 
     public CharacterController controller;
-
-    float speed;
+    public Transform groundCheck;
+    public LayerMask groundMask;
     public float walkingSpeed = 4f;
     public float sprintingSpeed = 8f;
     public float gravity = -9.81f;
     public float jumpHeight = 1.5f;
     public float jumpSpeed = 2f;
-
-    public Transform groundCheck;
     public float groundDistance = 0.4f;
-    public LayerMask groundMask;
-
-    Vector3 velocity;
     public bool isGrounded;
+
+    private float speed;
+    private Vector3 velocity;
 
     private void Start()
     {
@@ -38,9 +36,7 @@ public class PlayerMovement : NetworkBehaviour  //MonoBehaviour
         //isGrounded = controller.isGrounded;
 
         if (isGrounded && velocity.y < 0)
-        {
-            velocity.y = gravity;//-10;//-2;
-        }
+            velocity.y = gravity;
 
         speed = Input.GetKey(KeyCode.LeftShift) ? walkingSpeed : sprintingSpeed;
 
@@ -55,7 +51,6 @@ public class PlayerMovement : NetworkBehaviour  //MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        //if(isGrounded)
         move = Vector3.ClampMagnitude(move, 1);
 
         controller.Move(move * speed * Time.deltaTime);

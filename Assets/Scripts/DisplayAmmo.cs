@@ -4,14 +4,13 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
-public class DisplayAmmo : NetworkBehaviour//MonoBehaviour
+public class DisplayAmmo : NetworkBehaviour
 {
     public GameObject wepHolder;
     public WeaponSwitcher weaponSwitcher;
 
     private TMP_Text ammoText;
 
-    // Start is called before the first frame update
     void Start()
     {
         ammoText = GetComponent<TMP_Text>();
@@ -19,7 +18,6 @@ public class DisplayAmmo : NetworkBehaviour//MonoBehaviour
             ammoText.enabled = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!IsOwner)

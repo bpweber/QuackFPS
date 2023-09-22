@@ -4,7 +4,7 @@ using System.IO;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerHealth : NetworkBehaviour//MonoBehaviour
+public class PlayerHealth : NetworkBehaviour
 {
     public float maxHealth = 100f;
     public float currentHealth = 100f;
@@ -27,16 +27,13 @@ public class PlayerHealth : NetworkBehaviour//MonoBehaviour
             playerBody.SetActive(false);
             playerBodyFirstPerson.SetActive(true);
             playerHead.GetComponent<MeshCollider>().enabled = false;
-
         }
     }
 
     public void Damage(float damageAmt)
     {
         StartCoroutine("DamageFlash");
-
         Vector3 respawnLoc = new Vector3(Random.Range(-10f, 10f), 1, Random.Range(-10f, 10f));
-
         DamageServerRpc(damageAmt, respawnLoc);
     }
 
@@ -48,7 +45,7 @@ public class PlayerHealth : NetworkBehaviour//MonoBehaviour
         if (currentHealth <= 0)
         {
             transform.GetComponent<CharacterController>().enabled = false;
-            transform.position = respawnLoc;//new Vector3(0, 1, 0);
+            transform.position = respawnLoc;
             transform.GetComponent<CharacterController>().enabled = true;
             StartCoroutine(ResetHealth());
         }
@@ -60,7 +57,7 @@ public class PlayerHealth : NetworkBehaviour//MonoBehaviour
         currentHealth -= damageAmt;   
         if(currentHealth <= 0) {
             transform.GetComponent<CharacterController>().enabled = false;
-            transform.position = respawnLoc;//new Vector3(0, 1, 0);
+            transform.position = respawnLoc;
             transform.GetComponent<CharacterController>().enabled = true;
             StartCoroutine(ResetHealth());
         }

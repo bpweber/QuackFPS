@@ -11,17 +11,14 @@ public class RaycastShoot : NetworkBehaviour
     public float fireRate = .1f;
     public float maxInnacuracyMultiplier = 3f;
     public bool fullAuto = false;
+    public int ammo = 100;
+    public int maxAmmo = 100;
+    public bool canReloadWithR = false;
     public Transform gunEnd;
     public GameObject bulletHole;
     public Camera playerCam;
-
     public AudioSource gunAudio;
     public AudioSource reloadSound;
-
-    public int ammo = 100;
-    public int maxAmmo = 100;
-    // public LayerMask ignoreRaycast;
-
 
     private LineRenderer laserLine;
     private WaitForSeconds shotDuration = new WaitForSeconds(.05f);
@@ -35,18 +32,12 @@ public class RaycastShoot : NetworkBehaviour
     {
         if(GetComponent<LineRenderer>() != null)
             laserLine = GetComponent<LineRenderer>();
-        //gunAudio = GetComponent<AudioSource>();
         slidePos = transform.GetChild(0).localPosition;
     }
     
     void Update()
     {
-
         if (!IsLocalPlayer) return;
-
-       // if (laserLine != null)
-         //   laserLine.SetPosition(0, gunEnd.position);
-
 
         if (!PauseMenu.GameIsPaused && ((!fullAuto && Input.GetButtonDown("Fire1")) || (fullAuto && Input.GetButton("Fire1"))) && Time.time > nextFire && ammo > 0 && !isReloading)
         {
@@ -64,9 +55,6 @@ public class RaycastShoot : NetworkBehaviour
             Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(.5f, .5f, 0));
             RaycastHit hit;
 
-            //if (laserLine != null)
-            //    laserLine.SetPosition(0, gunEnd.position);
-
             Vector3 DirectionRay;
 
             float innacuracyMultiplier = -1f;
@@ -78,7 +66,7 @@ public class RaycastShoot : NetworkBehaviour
             }
             else if(numShotsInBurst > 2 && numShotsInBurst <= 5)
             {
-                innacuracyMultiplier = maxInnacuracyMultiplier / 3;//0.5f;
+                innacuracyMultiplier = maxInnacuracyMultiplier / 3;
             }
             else if (numShotsInBurst > 5 && numShotsInBurst <= 10)
             {
@@ -93,26 +81,15 @@ public class RaycastShoot : NetworkBehaviour
             float randY = Random.Range(0.02f * innacuracyMultiplier, -0.01f * innacuracyMultiplier);
             DirectionRay = playerCam.transform.TransformDirection(randX, randY, 1);
 
-
-            //if (Physics.Raycast(rayOrigin,fpsCam.transform.forward,out hit, weaponRange))
-            if (Physics.Raycast(rayOrigin, DirectionRay, out hit, float.MaxValue, ~Physics.IgnoreRaycastLayer))//~ignoreRaycast))
+            if (Physics.Raycast(rayOrigin, DirectionRay, out hit, float.MaxValue, ~Physics.IgnoreRaycastLayer))
             {
-                //if (laserLine != null)
-                 //   laserLine.SetPosition(1, hit.point);
-
-                //PlayerHealth health = hit.collider.GetComponent<PlayerHealth>();
                 PlayerHealth health = hit.collider.GetComponentInParent<PlayerHealth>();
 
                 //Debug.Log(hit.collider);
 
-                bool headShot = hit.collider.tag.Equals("PlayerHead");//hit.collider is SphereCollider;
-                //
-                //if(headShot)
-                //    Debug.Log("BOOM HEADSHOT");
+                bool headShot = hit.collider.tag.Equals("PlayerHead");
                 if (health != null)
                 {
-                    //if (hit.collider is CharacterController)
-                    //   return;
                     if(headShot)
                         health.Damage(headShotDamage);
                     else
@@ -140,8 +117,7 @@ public class RaycastShoot : NetworkBehaviour
 
         }
 
-
-        if(!PauseMenu.GameIsPaused && Input.GetKeyDown(KeyCode.R) && !isReloading && (ammo < maxAmmo))
+        if(!PauseMenu.GameIsPaused && canReloadWithR && Input.GetKeyDown(KeyCode.R) && !isReloading && (ammo < maxAmmo))
         {
             StartCoroutine(Reload());
         }
@@ -177,7 +153,7 @@ public class RaycastShoot : NetworkBehaviour
         }
     }
 
-    private IEnumerator Reload()
+    public IEnumerator Reload()
     {
         isReloading = true;
         reloadSound.Play();

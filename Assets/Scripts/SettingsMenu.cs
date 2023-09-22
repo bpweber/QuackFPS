@@ -6,11 +6,6 @@ using TMPro;
 
 public class SettingsMenu : MonoBehaviour
 {
-    public void Start()
-    {
-       // Application.targetFrameRate = 100;
-    }
-
     public void SetSens(float sens)
     {
         Debug.Log(sens);

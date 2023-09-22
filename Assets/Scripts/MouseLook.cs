@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class MouseLook : NetworkBehaviour//MonoBehaviour
+public class MouseLook : NetworkBehaviour
 {
 
     public static float mouseSensitivity = 1.50f;
-
     public Transform playerBody;
-
-    float xRotation = 0f;
-
     public GameObject cameraHolder;
+    float xRotation = 0f;
 
     public override void OnNetworkSpawn()
     {
