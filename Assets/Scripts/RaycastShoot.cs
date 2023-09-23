@@ -21,27 +21,29 @@ public class RaycastShoot : NetworkBehaviour
     public AudioSource reloadSound;
     public AudioSource dryFire;
     public int killCount = 0;
+    public Vector3 slidePos;
 
+    private Vector3 rearwardSlidePos;
     private LineRenderer laserLine;
     private WaitForSeconds shotDuration = new WaitForSeconds(.05f);
     private float nextFire;
     private float timeOfLastShot = 0;
     private int numShotsInBurst = 1;
-    private Vector3 slidePos;
     private bool isReloading = false;
 
     void Start()
     {
         if(GetComponent<LineRenderer>() != null)
             laserLine = GetComponent<LineRenderer>();
-        slidePos = transform.GetChild(0).localPosition;
+        rearwardSlidePos = new Vector3(slidePos.x - 0.0285f, slidePos.y, slidePos.z);
+        //slidePos = transform.GetChild(0).localPosition;
     }
     
     void Update()
     {
         if (!IsLocalPlayer) return;
 
-        if (!PauseMenu.GameIsPaused && ((!fullAuto && Input.GetButtonDown("Fire1")) || (fullAuto && Input.GetButton("Fire1"))) && Time.time > nextFire /*&& ammo > 0*/ && !isReloading)
+        if (!PauseMenu.GameIsPaused && (Input.GetButtonDown("Fire1") || (fullAuto && Input.GetButton("Fire1") && ammo > 0)) && Time.time > nextFire /*&& ammo > 0*/ && !isReloading)
         {
             if(ammo < 1)
             {
@@ -103,7 +105,7 @@ public class RaycastShoot : NetworkBehaviour
                         killCount++;
                     health.Damage(dmg);        
                 }
-                else if(laserLine == null)
+                else if(bulletHole != null)
                 {
                     GameObject decal = Instantiate(bulletHole, hit.point + hit.normal * .0001f, Quaternion.LookRotation(hit.normal));
                     bulletHole.transform.up = hit.normal;
@@ -134,31 +136,21 @@ public class RaycastShoot : NetworkBehaviour
     private IEnumerator ShotEffect()
     {
         gunAudio.Play();
+
         if (laserLine != null)
-        {
             laserLine.enabled = true;
-            transform.Rotate(new Vector3(0f, 0f, 1.5f));
-            transform.position = new Vector3(transform.position.x, transform.position.y + .0125f, transform.position.z);
-        }
-        else
-        {
-            transform.Rotate(new Vector3(0f, 0f, 3f));
-            transform.position = new Vector3(transform.position.x, transform.position.y + .025f, transform.position.z);
-        }
-        transform.GetChild(0).localPosition = new Vector3(slidePos.x -25, slidePos.y, slidePos.z);
+
+        transform.Rotate(new Vector3(0f, 0f, 2f));
+        transform.position = new Vector3(transform.position.x, transform.position.y + .0125f, transform.position.z); 
+        transform.GetChild(0).localPosition = rearwardSlidePos;
         yield return shotDuration;
-        transform.GetChild(0).localPosition = slidePos;
+        if(ammo > 0)
+            transform.GetChild(0).localPosition = slidePos;
+        transform.Rotate(new Vector3(0f, 0f, -2f));
+        transform.position = new Vector3(transform.position.x, transform.position.y - .0125f, transform.position.z);
+
         if (laserLine != null)
-        {
-            transform.Rotate(new Vector3(0f, 0f, -1.5f));
-            transform.position = new Vector3(transform.position.x, transform.position.y - .0125f, transform.position.z);
             laserLine.enabled = false;
-        }
-        else
-        {
-            transform.Rotate(new Vector3(0f, 0f, -3f));
-            transform.position = new Vector3(transform.position.x, transform.position.y - .025f, transform.position.z);
-        }
     }
 
     public IEnumerator Reload()
@@ -169,7 +161,7 @@ public class RaycastShoot : NetworkBehaviour
                 reloadSound.Play();
 
             yield return new WaitForSeconds(0.05f);
-            transform.GetChild(0).localPosition = new Vector3(slidePos.x - 25, slidePos.y, slidePos.z);
+            transform.GetChild(0).localPosition = rearwardSlidePos;
             yield return new WaitForSeconds(0.5f);
             transform.GetChild(0).localPosition = slidePos;
             yield return new WaitForSeconds(0.3f);
