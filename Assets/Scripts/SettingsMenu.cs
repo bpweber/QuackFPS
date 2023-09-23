@@ -8,7 +8,6 @@ public class SettingsMenu : MonoBehaviour
 {
     public void SetSens(float sens)
     {
-        Debug.Log(sens);
         MouseLook.mouseSensitivity = sens;
     }
 }

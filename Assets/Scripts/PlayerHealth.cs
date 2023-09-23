@@ -14,7 +14,7 @@ public class PlayerHealth : NetworkBehaviour
     public GameObject playerBody;
     public GameObject playerBodyFirstPerson;
     public GameObject playerHead;
-
+    public int deathCount = 0;
 
     private Color originalColorHead;
     private Color originalColorBody;
@@ -78,6 +78,7 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth = 0;
         yield return new WaitForSeconds(0.01f);
         currentHealth = maxHealth;
+        deathCount++;
     }
 
     IEnumerator DamageFlash()

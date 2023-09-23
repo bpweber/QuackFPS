@@ -19,6 +19,7 @@ public class RaycastShoot : NetworkBehaviour
     public Camera playerCam;
     public AudioSource gunAudio;
     public AudioSource reloadSound;
+    public int killCount = 0;
 
     private LineRenderer laserLine;
     private WaitForSeconds shotDuration = new WaitForSeconds(.05f);
@@ -90,10 +91,10 @@ public class RaycastShoot : NetworkBehaviour
                 bool headShot = hit.collider.tag.Equals("PlayerHead");
                 if (health != null)
                 {
-                    if(headShot)
-                        health.Damage(headShotDamage);
-                    else
-                        health.Damage(gunDamage);                   
+                    float dmg = headShot ? headShotDamage : gunDamage;
+                    if(dmg >= health.currentHealth)
+                        killCount++;
+                    health.Damage(dmg);        
                 }
                 else if(laserLine == null)
                 {
@@ -157,7 +158,8 @@ public class RaycastShoot : NetworkBehaviour
     {
         if (!isReloading) {
             isReloading = true;
-            reloadSound.Play();
+            if(IsLocalPlayer)
+                reloadSound.Play();
             yield return new WaitForSeconds(0.1f);
             transform.GetChild(0).localPosition = new Vector3(slidePos.x - 25, slidePos.y, slidePos.z);
             yield return new WaitForSeconds(0.5f);

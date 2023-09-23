@@ -16,6 +16,6 @@ public class SensDisplay : MonoBehaviour
 
     void Update()
     {
-        sensText.SetText(Math.Round(MouseLook.mouseSensitivity, 2) + "");
+        sensText.SetText($"{Math.Round(MouseLook.mouseSensitivity, 2)}");
     }
 }

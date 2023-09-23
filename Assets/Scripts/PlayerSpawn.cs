@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class CustomNetworkManager : NetworkBehaviour
+public class PlayerSpawn : NetworkBehaviour
 {
 
     public override void OnNetworkSpawn()
@@ -17,6 +17,5 @@ public class CustomNetworkManager : NetworkBehaviour
         transform.GetComponent<CharacterController>().enabled = false;
         transform.position = new Vector3(randX, 1, randZ);
         transform.GetComponent<CharacterController>().enabled = true;
-
     }
 }
