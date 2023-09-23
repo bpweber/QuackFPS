@@ -10,12 +10,15 @@ public class PlayerHealth : NetworkBehaviour
     public float currentHealth = 100f;
     public AudioSource hitmarkerAudio1;
     public AudioSource hitmarkerAudio2;
+    public AudioSource healSound;
     public GameObject playerBody;
     public GameObject playerBodyFirstPerson;
     public GameObject playerHead;
 
+
     private Color originalColorHead;
     private Color originalColorBody;
+
 
     public void Start()
     {
@@ -28,6 +31,12 @@ public class PlayerHealth : NetworkBehaviour
             playerBodyFirstPerson.SetActive(true);
             playerHead.GetComponent<MeshCollider>().enabled = false;
         }
+    }
+
+    public void playHealSound()
+    {
+        if (IsLocalPlayer)
+            healSound.Play();
     }
 
     public void Damage(float damageAmt)

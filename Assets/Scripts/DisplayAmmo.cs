@@ -22,6 +22,10 @@ public class DisplayAmmo : NetworkBehaviour
     {
         if (!IsOwner)
             return;
-        ammoText.SetText("" + wepHolder.transform.GetChild(weaponSwitcher.activeWep).GetComponent<RaycastShoot>().ammo);
+        ammoText.SetText($"{wepHolder.transform.GetChild(weaponSwitcher.activeWep).GetComponent<RaycastShoot>().ammo}");
+        if (wepHolder.transform.GetChild(weaponSwitcher.activeWep).GetComponent<RaycastShoot>().ammo < 1)
+            ammoText.color = Color.red;
+        else 
+            ammoText.color = Color.white;
     }
 }
