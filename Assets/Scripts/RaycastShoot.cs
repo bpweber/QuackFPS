@@ -19,6 +19,7 @@ public class RaycastShoot : NetworkBehaviour
     public Camera playerCam;
     public AudioSource gunAudio;
     public AudioSource reloadSound;
+    public AudioSource dryFire;
     public int killCount = 0;
 
     private LineRenderer laserLine;
@@ -40,8 +41,14 @@ public class RaycastShoot : NetworkBehaviour
     {
         if (!IsLocalPlayer) return;
 
-        if (!PauseMenu.GameIsPaused && ((!fullAuto && Input.GetButtonDown("Fire1")) || (fullAuto && Input.GetButton("Fire1"))) && Time.time > nextFire && ammo > 0 && !isReloading)
+        if (!PauseMenu.GameIsPaused && ((!fullAuto && Input.GetButtonDown("Fire1")) || (fullAuto && Input.GetButton("Fire1"))) && Time.time > nextFire /*&& ammo > 0*/ && !isReloading)
         {
+            if(ammo < 1)
+            {
+                dryFire.Play();
+                return;
+            }
+
             if ((Time.time - timeOfLastShot) < 0.25)
                 numShotsInBurst++;
             else
@@ -160,7 +167,8 @@ public class RaycastShoot : NetworkBehaviour
             isReloading = true;
             if(IsLocalPlayer)
                 reloadSound.Play();
-            yield return new WaitForSeconds(0.1f);
+
+            yield return new WaitForSeconds(0.05f);
             transform.GetChild(0).localPosition = new Vector3(slidePos.x - 25, slidePos.y, slidePos.z);
             yield return new WaitForSeconds(0.5f);
             transform.GetChild(0).localPosition = slidePos;

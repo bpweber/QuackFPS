@@ -26,16 +26,24 @@ public class DisplayKDA : NetworkBehaviour//MonoBehaviour
     {
         if (!IsOwner)
             return;
-        int totalKills = 0;
-        foreach (RaycastShoot rcs in wepHolder.GetComponentsInChildren<RaycastShoot>())
-            totalKills += rcs.killCount;
-        deaths = playerHealth.deathCount;
-        if (deaths == 0)
-            kdr = totalKills;
-        else
-            kdr = Math.Round(((double) totalKills / (double) deaths), 2);
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            kdaText.enabled = true;
+            int totalKills = 0;
+            foreach (RaycastShoot rcs in wepHolder.GetComponentsInChildren<RaycastShoot>())
+                totalKills += rcs.killCount;
+            deaths = playerHealth.deathCount;
+            if (deaths == 0)
+                kdr = totalKills;
+            else
+                kdr = Math.Round(((double)totalKills / (double)deaths), 2);
 
-        kdaText.SetText($"K\tD\tK/D\n" +
-                        $"{totalKills}\t{deaths}\t{kdr}");
+            kdaText.SetText($"K\tD\tK/D\n" +
+                            $"{totalKills}\t{deaths}\t{kdr}");
+        }
+        else
+        {
+            kdaText.enabled = false;
+        }
     }
 }
