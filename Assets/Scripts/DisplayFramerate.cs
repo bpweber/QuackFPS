@@ -4,7 +4,7 @@ using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
-public class DisplayFramerate : NetworkBehaviour//MonoBehaviour
+public class DisplayFramerate : NetworkBehaviour
 {
 
     public float updateInterval = 0.1f;

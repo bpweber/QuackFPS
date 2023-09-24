@@ -21,9 +21,8 @@ public class RaycastShoot : NetworkBehaviour
     public AudioSource reloadSound;
     public AudioSource dryFire;
     public int killCount = 0;
-    public Vector3 slidePos;
+    public Animator recoilAnim;
 
-    private Vector3 rearwardSlidePos;
     private LineRenderer laserLine;
     private WaitForSeconds shotDuration = new WaitForSeconds(.05f);
     private float nextFire;
@@ -35,8 +34,7 @@ public class RaycastShoot : NetworkBehaviour
     {
         if(GetComponent<LineRenderer>() != null)
             laserLine = GetComponent<LineRenderer>();
-        rearwardSlidePos = new Vector3(slidePos.x - 0.0285f, slidePos.y, slidePos.z);
-        //slidePos = transform.GetChild(0).localPosition;
+        recoilAnim = GetComponent<Animator>();
     }
     
     void Update()
@@ -140,14 +138,11 @@ public class RaycastShoot : NetworkBehaviour
         if (laserLine != null)
             laserLine.enabled = true;
 
-        transform.Rotate(new Vector3(0f, 0f, 2f));
-        transform.position = new Vector3(transform.position.x, transform.position.y + .0125f, transform.position.z); 
-        transform.GetChild(0).localPosition = rearwardSlidePos;
+        recoilAnim.SetTrigger("SlideBack");
+        if (ammo > 0)
+            recoilAnim.SetTrigger("SlideForward");
+
         yield return shotDuration;
-        if(ammo > 0)
-            transform.GetChild(0).localPosition = slidePos;
-        transform.Rotate(new Vector3(0f, 0f, -2f));
-        transform.position = new Vector3(transform.position.x, transform.position.y - .0125f, transform.position.z);
 
         if (laserLine != null)
             laserLine.enabled = false;
@@ -161,9 +156,10 @@ public class RaycastShoot : NetworkBehaviour
                 reloadSound.Play();
 
             yield return new WaitForSeconds(0.05f);
-            transform.GetChild(0).localPosition = rearwardSlidePos;
+            if(ammo > 0)
+                recoilAnim.SetTrigger("SlideBack");
             yield return new WaitForSeconds(0.5f);
-            transform.GetChild(0).localPosition = slidePos;
+            recoilAnim.SetTrigger("SlideForward");
             yield return new WaitForSeconds(0.3f);
             if (ammo < maxAmmo)
                 ammo = maxAmmo;

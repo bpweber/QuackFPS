@@ -4,19 +4,22 @@ using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 using TMPro;
 using System;
+using Unity.Netcode;
 
 public class SettingsMenu : MonoBehaviour
 {
     public static int targetFrameRate = 1000;
-    public float volume = 5f;
+    public static float volume = 50f;
 
     public TMP_Text volumeText;
     public TMP_Text sensText;
     public TMP_Text fpsText;
 
+
     void Start()
     {
         Application.targetFrameRate = targetFrameRate;
+        AudioListener.volume = volume /100;
     }
 
     private void Update()
@@ -40,6 +43,7 @@ public class SettingsMenu : MonoBehaviour
     public void SetVolume(float newVolume)
     {
         volume = newVolume;
-        Debug.Log(newVolume);
+        AudioListener.volume = volume / 100;
+        Debug.Log(AudioListener.volume);
     }
 }

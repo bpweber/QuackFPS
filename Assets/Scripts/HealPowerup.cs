@@ -12,7 +12,6 @@ public class HealPowerup : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(0, 50 * Time.deltaTime, 0);
         if(Time.time > nextPowerupTime && !powerupEnabled)
         {
             GetComponent<BoxCollider>().enabled = true;

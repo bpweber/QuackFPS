@@ -9,11 +9,6 @@ public class PlayerAmmo : MonoBehaviour
 
     private RaycastShoot rcs;
 
-    private void Update()
-    {
-        transform.Rotate(0, 50 * Time.deltaTime, 0);
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         wepHolder = other.transform.GetChild(0).GetChild(4).GetChild(3);

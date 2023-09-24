@@ -10,8 +10,6 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject pauseMenuUI;
 
-    public GameObject crosshairUI;
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)){
@@ -25,7 +23,7 @@ public class PauseMenu : MonoBehaviour
     void Resume()
     {
         pauseMenuUI.SetActive(false);
-        crosshairUI.SetActive(true);
+        //crosshairUI.SetActive(true);
         GameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -33,14 +31,25 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         pauseMenuUI.SetActive(true);
-        crosshairUI.SetActive(false);
+        //crosshairUI.SetActive(false);
         GameIsPaused = true;
         Cursor.lockState = CursorLockMode.None;
     }
 
     public void QuitGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        Application.Quit();
+        //DespawnPlayerServerRpc();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         GameIsPaused = false;
     }
+
+    /*
+    [ServerRpc(RequireOwnership = false)]
+    public void DespawnPlayerServerRpc()
+    {
+        thisPlayer.Despawn(true);
+    }
+    */
+    
 }
