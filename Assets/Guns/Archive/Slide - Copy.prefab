@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 713137516225059173}
   - component: {fileID: 3228902025288190339}
   m_Layer: 0
-  m_Name: Slide
+  m_Name: Slide - Copy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

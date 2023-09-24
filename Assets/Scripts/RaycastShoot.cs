@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RaycastShoot : NetworkBehaviour
 {
@@ -22,6 +23,7 @@ public class RaycastShoot : NetworkBehaviour
     public AudioSource dryFire;
     public int killCount = 0;
     public Animator recoilAnim;
+    public GameObject muzzleFlash;
 
     private LineRenderer laserLine;
     private WaitForSeconds shotDuration = new WaitForSeconds(.05f);
@@ -35,6 +37,8 @@ public class RaycastShoot : NetworkBehaviour
         if(GetComponent<LineRenderer>() != null)
             laserLine = GetComponent<LineRenderer>();
         recoilAnim = GetComponent<Animator>();
+        if (gunEnd.transform.childCount > 0)
+            muzzleFlash = gunEnd.transform.GetChild(0).gameObject;
     }
     
     void Update()
@@ -137,6 +141,8 @@ public class RaycastShoot : NetworkBehaviour
 
         if (laserLine != null)
             laserLine.enabled = true;
+        if (muzzleFlash != null)
+            muzzleFlash.SetActive(true);
 
         recoilAnim.SetTrigger("SlideBack");
         if (ammo > 0)
@@ -146,6 +152,8 @@ public class RaycastShoot : NetworkBehaviour
 
         if (laserLine != null)
             laserLine.enabled = false;
+        if (muzzleFlash != null)
+            muzzleFlash.SetActive(false);
     }
 
     public IEnumerator Reload()

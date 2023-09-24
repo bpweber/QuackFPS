@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 6552660628015208928}
   - component: {fileID: 615356560896851481}
   - component: {fileID: 139056929615219086}
+  - component: {fileID: 7031436469922295345}
   m_Layer: 2
   m_Name: RailReload
   m_TagString: Untagged
@@ -101,6 +102,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wepIndex: 2
   wepHolder: {fileID: 0}
+--- !u!95 &7031436469922295345
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6538967151016313490}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cfce24f440c338e4093c5143d9bb9007, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &901775236628657359
 PrefabInstance:
   m_ObjectHideFlags: 0

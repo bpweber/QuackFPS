@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6875122348859164326}
   - component: {fileID: 7717622986441280014}
   - component: {fileID: 3210388002216634739}
+  - component: {fileID: 6554226456743795531}
   m_Layer: 0
   m_Name: RailRevB
   m_TagString: Untagged
@@ -107,8 +108,8 @@ MonoBehaviour:
   fireRate: 1
   maxInnacuracyMultiplier: 0
   fullAuto: 0
-  ammo: 100
-  maxAmmo: 100
+  ammo: 10
+  maxAmmo: 10
   canReloadWithR: 0
   gunEnd: {fileID: 6611332217081872546}
   bulletHole: {fileID: 1290393447114875649, guid: 09a5cf7e806004943b24157be9473be1, type: 3}
@@ -117,7 +118,7 @@ MonoBehaviour:
   reloadSound: {fileID: 6875122348859164326}
   dryFire: {fileID: 7717622986441280014}
   killCount: 0
-  slidePos: {x: 0, y: 0, z: 0}
+  recoilAnim: {fileID: 6554226456743795531}
 --- !u!82 &2697314105388006367
 AudioSource:
   m_ObjectHideFlags: 0
@@ -128,7 +129,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fb7141119b44a16409a4f0a4252bfe71, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d29ec64034e9d4a48bbb7c8cd9e56e42, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.6
   m_Pitch: 0.9
@@ -426,7 +427,8 @@ LineRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials: []
+  m_Materials:
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -509,6 +511,27 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!95 &6554226456743795531
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704324832447295592}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 878b6b03599350f41b904ac047c15f09, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7538874442922215195
 GameObject:
   m_ObjectHideFlags: 0
