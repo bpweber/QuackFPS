@@ -12,12 +12,14 @@ public class DisplayHealth : NetworkBehaviour
     public GameObject player;
     public Image damageIndicator;
     public Image healthBarFill;
+    public Animator anim;
 
     private PlayerHealth playerHealth;
     private AudioSource damageSound;
     private TMP_Text hpText;
     private GameObject sliderObject;
     private Slider healthBar;
+
 
     void Start()
     {
@@ -44,7 +46,8 @@ public class DisplayHealth : NetworkBehaviour
         int prevHealth = Int32.Parse(hpText.text.Trim('%'));
 
         if (Math.Round(playerHealth.currentHealth, 0) < prevHealth)
-            StartCoroutine(FlashDamageIndicator());
+            FlashDamageIndicator();
+            //StartCoroutine(FlashDamageIndicator());
 
         hpText.SetText($"{Math.Round(playerHealth.currentHealth, 0)}%");
         healthBar.value = playerHealth.currentHealth / playerHealth.maxHealth;   
@@ -60,6 +63,14 @@ public class DisplayHealth : NetworkBehaviour
         }
     }
 
+    public void FlashDamageIndicator()
+    {
+        damageSound.Play();
+        anim.SetTrigger("FlashDamage");
+        anim.SetTrigger("UnflashDamage");
+    }
+
+    /*
     IEnumerator FlashDamageIndicator()
     {
         damageSound.Play();
@@ -67,4 +78,5 @@ public class DisplayHealth : NetworkBehaviour
         yield return new WaitForSeconds(0.1f);
         damageIndicator.enabled = false;
     }
+    */
 }
