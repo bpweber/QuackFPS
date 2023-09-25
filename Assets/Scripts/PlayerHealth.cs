@@ -85,7 +85,11 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth = maxHealth;
         deathCount++;
         foreach (RaycastShoot rcs in wepHolder.GetComponentsInChildren<RaycastShoot>())
+        {
+            rcs.recoilAnim.SetTrigger("SlideForward");
             rcs.ammo = rcs.maxAmmo;
+        }
+
     }
 
     IEnumerator DamageFlash()
