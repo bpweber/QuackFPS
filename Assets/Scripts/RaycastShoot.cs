@@ -174,7 +174,7 @@ public class RaycastShoot : NetworkBehaviour
             else if (ammo < maxAmmo * 1.5)
                 ammo += (maxAmmo / 2);
             else
-                ammo += (maxAmmo / 10);
+                ammo += (maxAmmo / 10) > 1 ? (maxAmmo / 10) : 1;
             if (ammo > maxAmmo * 2)
                 ammo = maxAmmo * 2;
             isReloading = false;
