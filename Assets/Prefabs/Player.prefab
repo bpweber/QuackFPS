@@ -1108,6 +1108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 8825877122636918630}
   cameraHolder: {fileID: 6541011569818326445}
+  playerCam: {fileID: 222752782054841611}
 --- !u!114 &5120414916651810372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2361,7 +2362,7 @@ GameObject:
   - component: {fileID: 3242988257776217835}
   - component: {fileID: 222752782054841611}
   - component: {fileID: 4177645262006386457}
-  - component: {fileID: 8599423545772421699}
+  - component: {fileID: 7045784238818091789}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2443,20 +2444,27 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6541011569818326445}
   m_Enabled: 1
---- !u!114 &8599423545772421699
-MonoBehaviour:
+--- !u!95 &7045784238818091789
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6541011569818326445}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b95315e2d5623549af5b81101437bd0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerBody: {fileID: 8825877122636918630}
-  cameraHolder: {fileID: 6541011569818326445}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cf95d4a30477b5a4281a585004ecc883, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6582470483388659895
 GameObject:
   m_ObjectHideFlags: 0
@@ -3762,6 +3770,10 @@ PrefabInstance:
     - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
       propertyPath: maxAmmo
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
+      propertyPath: fireRate
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
       propertyPath: playerCam

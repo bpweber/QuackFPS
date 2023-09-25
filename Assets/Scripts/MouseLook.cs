@@ -11,9 +11,15 @@ public class MouseLook : NetworkBehaviour
     public GameObject cameraHolder;
     float xRotation = 0f;
 
+    public Camera playerCam;
+    private Animator anim;
+
+
     public override void OnNetworkSpawn()
     {
         cameraHolder.SetActive(IsOwner);
+        if(IsOwner)
+            anim = cameraHolder.GetComponent<Animator>();
         base.OnNetworkSpawn();
     }
 
@@ -36,6 +42,16 @@ public class MouseLook : NetworkBehaviour
 
             transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
             playerBody.Rotate(Vector3.up * mouseX);
+
+
+            if (Input.GetButtonDown("Fire2"))
+            {
+                anim.SetTrigger("ZoomIn");
+            }
+            else if(Input.GetButtonUp("Fire2"))
+            {
+                anim.SetTrigger("ZoomOut");
+            }
         }
     }
 }
