@@ -63,12 +63,16 @@ public class PlayerHealth : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void DamageServerRpc(float damageAmt, Vector3 respawnLoc)
     {
-        currentHealth -= damageAmt;   
-        if(currentHealth <= 0) {
-            transform.GetComponent<CharacterController>().enabled = false;
-            transform.position = respawnLoc;
-            transform.GetComponent<CharacterController>().enabled = true;
-            StartCoroutine(ResetHealth());
+        if(!IsServer)
+        {
+            currentHealth -= damageAmt;
+            if (currentHealth <= 0)
+            {
+                transform.GetComponent<CharacterController>().enabled = false;
+                transform.position = respawnLoc;
+                transform.GetComponent<CharacterController>().enabled = true;
+                StartCoroutine(ResetHealth());
+            }
         }
         DamageClientRpc(damageAmt, respawnLoc);
     }

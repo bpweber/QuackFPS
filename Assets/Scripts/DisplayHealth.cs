@@ -12,6 +12,7 @@ public class DisplayHealth : NetworkBehaviour
     public GameObject player;
     public Image damageIndicator;
     public Image healthBarFill;
+    public Image healthBarBG;
     public Animator anim;
 
     private PlayerHealth playerHealth;
@@ -19,6 +20,7 @@ public class DisplayHealth : NetworkBehaviour
     private TMP_Text hpText;
     private GameObject sliderObject;
     private Slider healthBar;
+    private Color defaultColor;
 
 
     void Start()
@@ -28,6 +30,8 @@ public class DisplayHealth : NetworkBehaviour
         healthBar = sliderObject.GetComponent<Slider>();
         damageSound = GetComponent<AudioSource>();
         playerHealth = player.GetComponent<PlayerHealth>();
+
+        defaultColor = hpText.color;
 
         if (!IsOwner)
         {
@@ -47,19 +51,20 @@ public class DisplayHealth : NetworkBehaviour
 
         if (Math.Round(playerHealth.currentHealth, 0) < prevHealth)
             FlashDamageIndicator();
-            //StartCoroutine(FlashDamageIndicator());
 
         hpText.SetText($"{Math.Round(playerHealth.currentHealth, 0)}");
         healthBar.value = playerHealth.currentHealth / playerHealth.maxHealth;   
-        if(playerHealth.currentHealth < 25)
+        if(playerHealth.currentHealth <= 25)
         {
             hpText.color = Color.red;
             healthBarFill.color = Color.red;
+            healthBarBG.color = new Color(255, 0, 0, 0.25f);
         }
         else
         {
-            hpText.color = Color.white;
-            healthBarFill.color = Color.white;
+            hpText.color = defaultColor;
+            healthBarFill.color = defaultColor;
+            healthBarBG.color = new Color(defaultColor.r, defaultColor.b, defaultColor.g, 0.25f);
         }
     }
 
@@ -69,14 +74,4 @@ public class DisplayHealth : NetworkBehaviour
         anim.SetTrigger("FlashDamage");
         anim.SetTrigger("UnflashDamage");
     }
-
-    /*
-    IEnumerator FlashDamageIndicator()
-    {
-        damageSound.Play();
-        damageIndicator.enabled = true;
-        yield return new WaitForSeconds(0.1f);
-        damageIndicator.enabled = false;
-    }
-    */
 }

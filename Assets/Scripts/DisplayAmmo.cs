@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DisplayAmmo : NetworkBehaviour
 {
@@ -10,22 +11,37 @@ public class DisplayAmmo : NetworkBehaviour
     public WeaponSwitcher weaponSwitcher;
 
     private TMP_Text ammoText;
+    private Image gunImg;
+    private Color defaultColor;
+    private RaycastShoot rcs;
 
     void Start()
     {
         ammoText = GetComponent<TMP_Text>();
-        if(!IsOwner)
+        gunImg = ammoText.transform.GetChild(0).GetComponent<Image>();
+        defaultColor = ammoText.color;
+        if (!IsOwner)
+        {
             ammoText.enabled = false;
+            gunImg.enabled = false;
+        }
     }
 
     void Update()
     {
         if (!IsOwner)
             return;
-        ammoText.SetText($"{wepHolder.transform.GetChild(weaponSwitcher.activeWep).GetComponent<RaycastShoot>().ammo}");
-        if (wepHolder.transform.GetChild(weaponSwitcher.activeWep).GetComponent<RaycastShoot>().ammo < 1)
+        rcs = wepHolder.transform.GetChild(weaponSwitcher.activeWep).GetComponent<RaycastShoot>();
+        ammoText.SetText($"{rcs.ammo}");
+        if (rcs.ammo <= (0.25 * (float) rcs.maxAmmo))
+        {
             ammoText.color = Color.red;
-        else 
-            ammoText.color = Color.white;
+            gunImg.color = Color.red;
+        }
+        else
+        {
+            ammoText.color = defaultColor;
+            gunImg.color = defaultColor;
+        }
     }
 }
