@@ -8,7 +8,7 @@ using Unity.Netcode;
 
 public class SettingsMenu : MonoBehaviour
 {
-    public static int targetFrameRate = 1000;
+    public static int targetFrameRate = -1;
     public static float volume = 50f;
 
     public TMP_Text volumeText;
@@ -19,14 +19,17 @@ public class SettingsMenu : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = targetFrameRate;
-        AudioListener.volume = volume /100;
+        AudioListener.volume = volume / 100;
     }
 
     private void Update()
     {
         volumeText.SetText($"{volume}");
         sensText.SetText($"{Math.Round(MouseLook.mouseSensitivity, 2)}");
-        fpsText.SetText($"{targetFrameRate}");
+        if(targetFrameRate == -1)
+            fpsText.SetText("Inf");
+        else
+            fpsText.SetText($"{targetFrameRate}");
     }
 
     public void SetSens(float sens)
@@ -36,7 +39,12 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetTargetFramerate(float newTargetFrameRate)
     {
-        targetFrameRate = (int) newTargetFrameRate;
+
+        targetFrameRate = (int) newTargetFrameRate > 999 ? -1 : (int) newTargetFrameRate;
+
+        //targetFrameRate = (int) newTargetFrameRate;
+        //if (targetFrameRate > 999)
+        //    targetFrameRate = -1;
         Application.targetFrameRate = targetFrameRate;
     }
 
