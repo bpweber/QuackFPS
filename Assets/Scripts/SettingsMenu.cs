@@ -13,6 +13,7 @@ public class SettingsMenu : MonoBehaviour
 
     public TMP_Text volumeText;
     public TMP_Text sensText;
+    public TMP_Text zoomSensText;
     public TMP_Text fpsText;
 
 
@@ -26,7 +27,8 @@ public class SettingsMenu : MonoBehaviour
     {
         volumeText.SetText($"{volume}");
         sensText.SetText($"{Math.Round(MouseLook.mouseSensitivity, 2)}");
-        if(targetFrameRate == -1)
+        zoomSensText.SetText($"{Math.Round(MouseLook.zoomSens, 2)}");
+        if (targetFrameRate == -1)
             fpsText.SetText("Inf");
         else
             fpsText.SetText($"{targetFrameRate}");
@@ -35,6 +37,11 @@ public class SettingsMenu : MonoBehaviour
     public void SetSens(float sens)
     {
         MouseLook.mouseSensitivity = sens;
+    }
+
+    public void SetZoomSens(float zoomSens)
+    {
+        MouseLook.zoomSens = zoomSens;
     }
 
     public void SetTargetFramerate(float newTargetFrameRate)

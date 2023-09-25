@@ -1109,6 +1109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 8825877122636918630}
   cameraHolder: {fileID: 6541011569818326445}
+  zoomSens: 0.5
   playerCam: {fileID: 222752782054841611}
 --- !u!114 &5120414916651810372
 MonoBehaviour:

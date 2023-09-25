@@ -7,8 +7,11 @@ public class MouseLook : NetworkBehaviour
 {
 
     public static float mouseSensitivity = 1.50f;
+    public static float zoomSens = 0.5f;
     public Transform playerBody;
     public GameObject cameraHolder;
+    public float effectiveSens = mouseSensitivity;
+
     float xRotation = 0f;
 
     public Camera playerCam;
@@ -34,8 +37,8 @@ public class MouseLook : NetworkBehaviour
 
         if (!PauseMenu.GameIsPaused)
         {
-            float mouseX = Input.GetAxisRaw("Mouse X") * (mouseSensitivity / 2.5f);
-            float mouseY = Input.GetAxisRaw("Mouse Y") * (mouseSensitivity / 2.5f);
+            float mouseX = Input.GetAxisRaw("Mouse X") * (effectiveSens / 2.5f);
+            float mouseY = Input.GetAxisRaw("Mouse Y") * (effectiveSens / 2.5f);
 
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
@@ -47,10 +50,12 @@ public class MouseLook : NetworkBehaviour
             if (Input.GetButtonDown("Fire2"))
             {
                 anim.SetTrigger("ZoomIn");
+                effectiveSens = mouseSensitivity * zoomSens;
             }
             else if(Input.GetButtonUp("Fire2"))
             {
                 anim.SetTrigger("ZoomOut");
+                effectiveSens = mouseSensitivity;
             }
         }
     }
