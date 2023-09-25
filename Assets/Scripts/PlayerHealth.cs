@@ -14,6 +14,7 @@ public class PlayerHealth : NetworkBehaviour
     public GameObject playerBody;
     public GameObject playerBodyFirstPerson;
     public GameObject playerHead;
+    public GameObject wepHolder;
     public int deathCount = 0;
 
     private Color originalColorHead;
@@ -83,6 +84,8 @@ public class PlayerHealth : NetworkBehaviour
         yield return new WaitForSeconds(0.01f);
         currentHealth = maxHealth;
         deathCount++;
+        foreach (RaycastShoot rcs in wepHolder.GetComponentsInChildren<RaycastShoot>())
+            rcs.ammo = rcs.maxAmmo;
     }
 
     IEnumerator DamageFlash()

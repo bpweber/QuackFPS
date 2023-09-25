@@ -2972,6 +2972,7 @@ MonoBehaviour:
   playerBody: {fileID: 3673985586176427570}
   playerBodyFirstPerson: {fileID: 3391657178444073668}
   playerHead: {fileID: 893639548909153995}
+  wepHolder: {fileID: 32699067274747680}
   deathCount: 0
 --- !u!114 &7862306411591725152
 MonoBehaviour:
@@ -3765,15 +3766,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
       propertyPath: ammo
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
       propertyPath: maxAmmo
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
       propertyPath: fireRate
-      value: 0.75
+      value: 0.86
       objectReference: {fileID: 0}
     - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
       propertyPath: playerCam
