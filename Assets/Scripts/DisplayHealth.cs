@@ -43,13 +43,13 @@ public class DisplayHealth : NetworkBehaviour
         if (!IsOwner)
             return;
 
-        int prevHealth = Int32.Parse(hpText.text.Trim('%'));
+        int prevHealth = Int32.Parse(hpText.text);
 
         if (Math.Round(playerHealth.currentHealth, 0) < prevHealth)
             FlashDamageIndicator();
             //StartCoroutine(FlashDamageIndicator());
 
-        hpText.SetText($"{Math.Round(playerHealth.currentHealth, 0)}%");
+        hpText.SetText($"{Math.Round(playerHealth.currentHealth, 0)}");
         healthBar.value = playerHealth.currentHealth / playerHealth.maxHealth;   
         if(playerHealth.currentHealth < 25)
         {

@@ -6661,10 +6661,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2514453591944003769, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
-      propertyPath: m_Name
-      value: ServerPanel
-      objectReference: {fileID: 0}
     - target: {fileID: 2852186593650584162, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 779925819
@@ -6676,26 +6672,6 @@ PrefabInstance:
     - target: {fileID: 5586611564977992199, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 5586611564977992199, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5635573262345930151, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
-      propertyPath: m_Value
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5635573262345930151, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
-      propertyPath: m_MaxValue
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5967326041333501229, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6015924186700658349, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8194752984197241693, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
       propertyPath: m_Pivot.x
@@ -6776,10 +6752,6 @@ PrefabInstance:
     - target: {fileID: 8194752984197241693, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8893255916985258523, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
-      propertyPath: m_MinValue
-      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
