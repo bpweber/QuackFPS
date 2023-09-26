@@ -23,7 +23,6 @@ public class PauseMenu : MonoBehaviour
     void Resume()
     {
         pauseMenuUI.SetActive(false);
-        //crosshairUI.SetActive(true);
         GameIsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -31,7 +30,6 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         pauseMenuUI.SetActive(true);
-        //crosshairUI.SetActive(false);
         GameIsPaused = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -39,17 +37,6 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        //DespawnPlayerServerRpc();
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         GameIsPaused = false;
-    }
-
-    /*
-    [ServerRpc(RequireOwnership = false)]
-    public void DespawnPlayerServerRpc()
-    {
-        thisPlayer.Despawn(true);
-    }
-    */
-    
+    }  
 }

@@ -21,10 +21,10 @@ public class RaycastShoot : NetworkBehaviour
     public AudioSource gunAudio;
     public AudioSource reloadSound;
     public AudioSource dryFire;
-    public int killCount = 0;
     public Animator recoilAnim;
-    public GameObject muzzleFlash;
 
+    private Player player;
+    private GameObject muzzleFlash;
     private LineRenderer laserLine;
     private WaitForSeconds shotDuration = new WaitForSeconds(.05f);
     private float nextFire;
@@ -34,7 +34,9 @@ public class RaycastShoot : NetworkBehaviour
 
     void Start()
     {
-        if(GetComponent<LineRenderer>() != null)
+        if (IsOwner)
+            player = transform.root.GetComponent<Player>();
+        if (GetComponent<LineRenderer>() != null)
             laserLine = GetComponent<LineRenderer>();
         recoilAnim = GetComponent<Animator>();
         if (gunEnd.transform.childCount > 0)
@@ -95,17 +97,15 @@ public class RaycastShoot : NetworkBehaviour
 
             if (Physics.Raycast(rayOrigin, DirectionRay, out hit, float.MaxValue, ~Physics.IgnoreRaycastLayer))
             {
-                PlayerHealth health = hit.collider.GetComponentInParent<PlayerHealth>();
-
-                //Debug.Log(hit.collider);
+                Player damagedPlayer = hit.collider.GetComponentInParent<Player>();
 
                 bool headShot = hit.collider.tag.Equals("PlayerHead");
-                if (health != null)
+                if (damagedPlayer != null)
                 {
                     float dmg = headShot ? headShotDamage : gunDamage;
-                    if(dmg >= health.currentHealth)
-                        killCount++;
-                    health.Damage(dmg);        
+                    if (dmg >= damagedPlayer.GetHealth())
+                        player.SetKills(player.GetKills() + 1);
+                    damagedPlayer.GetComponent<PlayerHealth>().Damage(dmg);       
                 }
                 else if(bulletHole != null)
                 {

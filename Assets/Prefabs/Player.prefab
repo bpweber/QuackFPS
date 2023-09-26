@@ -428,8 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473c143e3f5f66642a6751fbe1d6724a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wepHolder: {fileID: 32699067274747680}
-  weaponSwitcher: {fileID: 7862306411591725152}
+  player: {fileID: 1723958474238663497}
 --- !u!1 &1426366877437209928
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,11 +955,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6867a657a91157844ae23aa042d65208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 7636220422185255073}
   damageIndicator: {fileID: 5928130093275474049}
   healthBarFill: {fileID: 2023630823634811834}
   healthBarBG: {fileID: 6360675029676895200}
   anim: {fileID: 2009069320150144268}
+  player: {fileID: 1723958474238663497}
 --- !u!82 &4881227281592333712
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1109,7 +1108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 8825877122636918630}
   cameraHolder: {fileID: 6541011569818326445}
-  zoomSens: 0.5
+  effectiveSens: 1.5
   playerCam: {fileID: 222752782054841611}
 --- !u!114 &5120414916651810372
 MonoBehaviour:
@@ -2192,8 +2191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772e737d73974284586f5e29d47ef167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wepHolder: {fileID: 32699067274747680}
-  playerHealth: {fileID: 6826897991925808543}
+  player: {fileID: 1723958474238663497}
 --- !u!1 &5922325288919099229
 GameObject:
   m_ObjectHideFlags: 0
@@ -2867,15 +2865,16 @@ GameObject:
   m_Component:
   - component: {fileID: 8825877122636918630}
   - component: {fileID: 7291320045962233471}
+  - component: {fileID: 1723958474238663497}
   - component: {fileID: 5160978268585595886}
   - component: {fileID: 6826897991925808543}
   - component: {fileID: 7862306411591725152}
+  - component: {fileID: 8396700135615713990}
   - component: {fileID: 8017797721923780839}
   - component: {fileID: 8784082249384282510}
   - component: {fileID: 7274705294113911847}
   - component: {fileID: -4505911084761227366}
   - component: {fileID: 247517265631530820}
-  - component: {fileID: 8396700135615713990}
   m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
@@ -2930,6 +2929,24 @@ CharacterController:
   m_SkinWidth: 0.06
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1723958474238663497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7636220422185255073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1db19f70cd37084dab6b4d0d19adaa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wepHolder: {fileID: 1296902362924798128}
+  weaponSwitcher: {fileID: 7862306411591725152}
+  kills: 0
+  deaths: 0
+  currentHealth: 100
+  maxHealth: 100
 --- !u!114 &5160978268585595886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2966,8 +2983,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a8e3030b9eec5429b66f6343f1ca09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 100
   hitmarkerAudio1: {fileID: 7274705294113911847}
   hitmarkerAudio2: {fileID: -4505911084761227366}
   healSound: {fileID: 247517265631530820}
@@ -2975,7 +2990,7 @@ MonoBehaviour:
   playerBodyFirstPerson: {fileID: 3391657178444073668}
   playerHead: {fileID: 893639548909153995}
   wepHolder: {fileID: 32699067274747680}
-  deathCount: 0
+  player: {fileID: 1723958474238663497}
 --- !u!114 &7862306411591725152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2992,6 +3007,18 @@ MonoBehaviour:
   G19: {fileID: 201221852519196901}
   LG: {fileID: 6674293580679892851}
   Rail: {fileID: 7780994984211684370}
+--- !u!114 &8396700135615713990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7636220422185255073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4a44f5809e06e54da6b6852aeee7f51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8017797721923780839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3330,18 +3357,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8396700135615713990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7636220422185255073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4a44f5809e06e54da6b6852aeee7f51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8002560355983489113
 GameObject:
   m_ObjectHideFlags: 0
@@ -3687,6 +3702,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 1296902362924798128}
     m_Modifications:
     - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1723958474238663497}
+    - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
+      propertyPath: gunDamage
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
       propertyPath: playerCam
       value: 
       objectReference: {fileID: 222752782054841611}
@@ -3694,6 +3717,10 @@ PrefabInstance:
       propertyPath: recoilAnim
       value: 
       objectReference: {fileID: 8966918559197954203}
+    - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
+      propertyPath: headShotDamage
+      value: 4.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5704324832447295592, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
       propertyPath: m_Name
       value: LGRevB
@@ -3831,6 +3858,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1723958474238663497}
+    - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
       propertyPath: maxAmmo
       value: 5
       objectReference: {fileID: 0}
@@ -3962,6 +3993,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1296902362924798128}
     m_Modifications:
+    - target: {fileID: 1374800640835796719, guid: d38ab6f001732ce40a0b98db626aa018, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1723958474238663497}
     - target: {fileID: 1374800640835796719, guid: d38ab6f001732ce40a0b98db626aa018, type: 3}
       propertyPath: playerCam
       value: 

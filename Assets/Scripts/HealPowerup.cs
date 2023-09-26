@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class HealPowerup : MonoBehaviour
 {
+    private Player player;
     public float powerupRespawnTimer = 10f;
     private float nextPowerupTime;
-    private PlayerHealth health;
     private bool powerupEnabled = true;
 
     private void Update()
@@ -23,13 +23,13 @@ public class HealPowerup : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(powerupEnabled)
-        {
-            health = other.GetComponent<PlayerHealth>();
-            if (health.currentHealth >= health.maxHealth)
+        {;
+            player = other.GetComponent<Player>();
+            if (player.GetHealth() >= player.GetMaxHealth())
                 return;
             nextPowerupTime = Time.time + powerupRespawnTimer;
-            health.currentHealth = health.maxHealth;
-            health.playHealSound();
+            player.SetHealth(player.GetMaxHealth());
+            other.GetComponent<PlayerHealth>().playHealSound();
             GetComponent<BoxCollider>().enabled = false;
             GetComponentInChildren<MeshRenderer>().enabled = false;
             powerupEnabled = false;

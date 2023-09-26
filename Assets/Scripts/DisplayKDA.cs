@@ -6,18 +6,19 @@ using Unity.Netcode;
 using UnityEngine;
 using System;
 
-public class DisplayKDA : NetworkBehaviour//MonoBehaviour
+public class DisplayKDA : NetworkBehaviour
 {
-    public GameObject wepHolder;
-    public PlayerHealth playerHealth;
+    private Player player;
     private TMP_Text kdaText;
-    //private int totalKills;
+    private int totalKills;
     private int deaths;
     private double kdr = 0;
 
     void Start()
     {
         kdaText = GetComponent<TMP_Text>();
+        if (IsOwner)
+            player = transform.root.GetComponent<Player>();
         if (!IsOwner)
             kdaText.enabled = false;
     }
@@ -29,10 +30,8 @@ public class DisplayKDA : NetworkBehaviour//MonoBehaviour
         if (Input.GetKey(KeyCode.Tab))
         {
             kdaText.enabled = true;
-            int totalKills = 0;
-            foreach (RaycastShoot rcs in wepHolder.GetComponentsInChildren<RaycastShoot>())
-                totalKills += rcs.killCount;
-            deaths = playerHealth.deathCount;
+            totalKills = player.GetKills();
+            deaths = player.GetDeaths();
             if (deaths == 0)
                 kdr = totalKills;
             else

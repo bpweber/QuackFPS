@@ -6,23 +6,22 @@ using UnityEngine;
 
 public class PlayerHealth : NetworkBehaviour
 {
-    public float maxHealth = 100f;
-    public float currentHealth = 100f;
     public AudioSource hitmarkerAudio1;
     public AudioSource hitmarkerAudio2;
     public AudioSource healSound;
     public GameObject playerBody;
     public GameObject playerBodyFirstPerson;
     public GameObject playerHead;
-    public GameObject wepHolder;
-    public int deathCount = 0;
 
+    private Player player;
     private Color originalColorHead;
     private Color originalColorBody;
 
 
     public void Start()
     {
+        player = transform.root.GetComponent<Player>();
+
         originalColorHead = transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.color;
         originalColorBody = transform.GetChild(1).GetComponent<Renderer>().material.color;
 
@@ -51,8 +50,8 @@ public class PlayerHealth : NetworkBehaviour
     [ClientRpc]
     public void DamageClientRpc(float damageAmt, Vector3 respawnLoc)
     {
-        currentHealth -= damageAmt;
-        if (currentHealth <= 0)
+        player.SetHealth(player.GetHealth() - damageAmt);
+        if(player.GetHealth() <= 0)
         {
             transform.GetComponent<CharacterController>().enabled = false;
             transform.position = respawnLoc;
@@ -66,8 +65,8 @@ public class PlayerHealth : NetworkBehaviour
     {
         if(!IsServer)
         {
-            currentHealth -= damageAmt;
-            if (currentHealth <= 0)
+            player.SetHealth(player.GetHealth() - damageAmt);
+            if (player.GetHealth() <= 0)
             {
                 transform.GetComponent<CharacterController>().enabled = false;
                 transform.position = respawnLoc;
@@ -80,11 +79,11 @@ public class PlayerHealth : NetworkBehaviour
 
     IEnumerator ResetHealth()
     {
-        currentHealth = 0;
-        yield return new WaitForSeconds(0.01f);
-        currentHealth = maxHealth;
-        deathCount++;
-        foreach (RaycastShoot rcs in wepHolder.GetComponentsInChildren<RaycastShoot>())
+        player.SetHealth(0);
+        yield return new WaitForSeconds(0.1f);
+        player.SetHealth(player.GetMaxHealth());
+        player.SetDeaths(player.GetDeaths() + 1);
+        foreach (RaycastShoot rcs in player.GetItemInHand().transform.parent.GetComponentsInChildren<RaycastShoot>())
         {
             rcs.recoilAnim.SetTrigger("SlideForward");
             rcs.ammo = rcs.maxAmmo;

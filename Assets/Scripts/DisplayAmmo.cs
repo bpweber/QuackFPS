@@ -7,9 +7,7 @@ using UnityEngine.UI;
 
 public class DisplayAmmo : NetworkBehaviour
 {
-    public GameObject wepHolder;
-    public WeaponSwitcher weaponSwitcher;
-
+    private Player player;
     private TMP_Text ammoText;
     private Image gunImg;
     private Color defaultColor;
@@ -17,6 +15,8 @@ public class DisplayAmmo : NetworkBehaviour
 
     void Start()
     {
+        if (IsOwner)
+            player = transform.root.GetComponent<Player>();
         ammoText = GetComponent<TMP_Text>();
         gunImg = ammoText.transform.GetChild(0).GetComponent<Image>();
         defaultColor = ammoText.color;
@@ -31,7 +31,7 @@ public class DisplayAmmo : NetworkBehaviour
     {
         if (!IsOwner)
             return;
-        rcs = wepHolder.transform.GetChild(weaponSwitcher.activeWep).GetComponent<RaycastShoot>();
+        rcs = player.GetItemInHand().GetComponent<RaycastShoot>();
         ammoText.SetText($"{rcs.ammo}");
         if (rcs.ammo <= (0.25 * (float) rcs.maxAmmo))
         {

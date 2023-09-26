@@ -8,21 +8,22 @@ public class MouseLook : NetworkBehaviour
 
     public static float mouseSensitivity = 1.50f;
     public static float zoomSens = 0.5f;
-    public Transform playerBody;
     public GameObject cameraHolder;
     public float effectiveSens = mouseSensitivity;
 
-    float xRotation = 0f;
-
-    public Camera playerCam;
+    private float xRotation = 0f;
+    private Transform playerBody;
     private Animator anim;
 
 
     public override void OnNetworkSpawn()
     {
         cameraHolder.SetActive(IsOwner);
-        if(IsOwner)
+        if (IsOwner)
+        {
+            playerBody = transform.root.transform;
             anim = cameraHolder.GetComponent<Animator>();
+        }
         base.OnNetworkSpawn();
     }
 
