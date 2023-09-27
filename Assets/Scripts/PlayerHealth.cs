@@ -80,9 +80,11 @@ public class PlayerHealth : NetworkBehaviour
     IEnumerator ResetHealth()
     {
         player.SetHealth(0);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.01f);
         player.SetHealth(player.GetMaxHealth());
         player.SetDeaths(player.GetDeaths() + 1);
+        yield return new WaitForSeconds(0.1f);
+        player.SetHealth(player.GetMaxHealth());
         foreach (RaycastShoot rcs in player.GetItemInHand().transform.parent.GetComponentsInChildren<RaycastShoot>())
         {
             rcs.recoilAnim.SetTrigger("SlideForward");

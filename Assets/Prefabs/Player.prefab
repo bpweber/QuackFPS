@@ -428,7 +428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473c143e3f5f66642a6751fbe1d6724a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1723958474238663497}
 --- !u!1 &1426366877437209928
 GameObject:
   m_ObjectHideFlags: 0
@@ -959,7 +958,6 @@ MonoBehaviour:
   healthBarFill: {fileID: 2023630823634811834}
   healthBarBG: {fileID: 6360675029676895200}
   anim: {fileID: 2009069320150144268}
-  player: {fileID: 1723958474238663497}
 --- !u!82 &4881227281592333712
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1106,10 +1104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b95315e2d5623549af5b81101437bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerBody: {fileID: 8825877122636918630}
   cameraHolder: {fileID: 6541011569818326445}
   effectiveSens: 1.5
-  playerCam: {fileID: 222752782054841611}
 --- !u!114 &5120414916651810372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2191,7 +2187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772e737d73974284586f5e29d47ef167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1723958474238663497}
 --- !u!1 &5922325288919099229
 GameObject:
   m_ObjectHideFlags: 0
@@ -2959,18 +2954,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d9c488f7b366ef4bb453a38630e4229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 7291320045962233471}
   groundCheck: {fileID: 2625741636591121942}
   groundMask:
     serializedVersion: 2
     m_Bits: 64
   walkingSpeed: 4
   sprintingSpeed: 8
-  gravity: -9.81
   jumpHeight: 1.5
-  jumpSpeed: 2
-  groundDistance: 0.4
-  isGrounded: 0
 --- !u!114 &6826897991925808543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2989,8 +2979,6 @@ MonoBehaviour:
   playerBody: {fileID: 3673985586176427570}
   playerBodyFirstPerson: {fileID: 3391657178444073668}
   playerHead: {fileID: 893639548909153995}
-  wepHolder: {fileID: 32699067274747680}
-  player: {fileID: 1723958474238663497}
 --- !u!114 &7862306411591725152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3877,6 +3865,10 @@ PrefabInstance:
       propertyPath: recoilAnim
       value: 
       objectReference: {fileID: 9090298955150079793}
+    - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
+      propertyPath: headShotDamage
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 2697314105388006367, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
       propertyPath: m_audioClip
       value: 
