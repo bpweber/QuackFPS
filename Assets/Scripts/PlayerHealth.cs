@@ -95,18 +95,18 @@ public class PlayerHealth : NetworkBehaviour
 
     IEnumerator DamageFlash()
     {
-        transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.color = Color.red;
-        transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
-        transform.GetChild(2).GetComponent<Renderer>().material.color = Color.red;
+        //transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.color = Color.red;
+        //transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
+        //transform.GetChild(2).GetComponent<Renderer>().material.color = Color.red;
         yield return new WaitForSeconds(0.03f);
-        hitmarkerAudio1.volume = 0.165f;
+        hitmarkerAudio1.volume = 0.125f;
         hitmarkerAudio2.volume = 0.25f;
         hitmarkerAudio1.Play();
         hitmarkerAudio2.Play();
         yield return new WaitForSeconds(0.02f);
-        transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.color = originalColorHead;
-        transform.GetChild(1).GetComponent<Renderer>().material.color = originalColorBody;
-        transform.GetChild(2).GetComponent<Renderer>().material.color = originalColorHead;
+        //transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.color = originalColorHead;
+        //transform.GetChild(1).GetComponent<Renderer>().material.color = originalColorBody;
+        //transform.GetChild(2).GetComponent<Renderer>().material.color = originalColorHead;
         StopCoroutine("DamageFlash");
     }
 }

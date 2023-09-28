@@ -261,7 +261,7 @@ RectTransform:
   m_Father: {fileID: 951086246}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.44444445, y: 1}
+  m_AnchorMax: {x: 0.8, y: 1}
   m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7037,6 +7037,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6914100542430303284, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
+      propertyPath: m_text
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 8194752984197241693, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -12195,7 +12199,7 @@ MonoBehaviour:
   m_MinValue: 0.1
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.5
+  m_Value: 0.82
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -13815,7 +13819,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 0.82
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -15114,8 +15118,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1305954740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.44444445, y: 0}
-  m_AnchorMax: {x: 0.44444445, y: 1}
+  m_AnchorMin: {x: 0.8, y: 0}
+  m_AnchorMax: {x: 0.8, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -17204,7 +17208,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 139056929615219086, guid: 30ffe77bd31b70f4b9afbb76f81e3d9e, type: 3}
       propertyPath: powerupRespawnTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6538967151016313490, guid: 30ffe77bd31b70f4b9afbb76f81e3d9e, type: 3}
       propertyPath: m_Name
@@ -17265,7 +17269,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 12063726502776990, guid: 53a256a9daa5c074eb850bc648b19929, type: 3}
       propertyPath: powerupRespawnTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3471777715960101983, guid: 53a256a9daa5c074eb850bc648b19929, type: 3}
       propertyPath: m_Name

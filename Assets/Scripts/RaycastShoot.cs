@@ -22,6 +22,7 @@ public class RaycastShoot : NetworkBehaviour
     public AudioSource reloadSound;
     public AudioSource dryFire;
     public Animator recoilAnim;
+    public Animator hitmarkerAnim;
 
     private Player player;
     private GameObject muzzleFlash;
@@ -102,6 +103,9 @@ public class RaycastShoot : NetworkBehaviour
                 bool headShot = hit.collider.tag.Equals("PlayerHead");
                 if (damagedPlayer != null)
                 {
+                    hitmarkerAnim.SetTrigger("FlashDamage");
+                    hitmarkerAnim.SetTrigger("UnflashDamage");
+
                     float dmg = headShot ? headShotDamage : gunDamage;
                     if (dmg >= damagedPlayer.GetHealth())
                         player.SetKills(player.GetKills() + 1);

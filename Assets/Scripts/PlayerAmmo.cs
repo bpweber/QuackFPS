@@ -31,13 +31,14 @@ public class PlayerAmmo : MonoBehaviour
             wepHolder = other.GetComponent<Player>().GetItemInHand().transform.parent;
             rcs = wepHolder.GetChild(wepIndex).GetComponent<RaycastShoot>();
             if (rcs.ammo < rcs.maxAmmo * 2)
+            {
                 StartCoroutine(rcs.Reload());
-            nextPowerupTime = Time.time + powerupRespawnTimer;
-            GetComponent<BoxCollider>().enabled = false;
-            foreach (MeshRenderer renderer in GetComponentsInChildren<MeshRenderer>())
-                renderer.enabled = false;
-            //GetComponentInChildren<MeshRenderer>().enabled = false;
-            powerupEnabled = false;
+                nextPowerupTime = Time.time + powerupRespawnTimer;
+                GetComponent<BoxCollider>().enabled = false;
+                foreach (MeshRenderer renderer in GetComponentsInChildren<MeshRenderer>())
+                    renderer.enabled = false;
+                powerupEnabled = false;
+            }
         }
     }
 }
