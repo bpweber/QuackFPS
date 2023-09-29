@@ -2509,7 +2509,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.25
+  near clip plane: 0.15
   far clip plane: 100
   field of view: 75
   orthographic: 0
@@ -3077,6 +3077,7 @@ MonoBehaviour:
   playerBody: {fileID: 3673985586176427570}
   playerBodyFirstPerson: {fileID: 3391657178444073668}
   playerHead: {fileID: 893639548909153995}
+  displayHealth: {fileID: 2904868092449710425}
 --- !u!114 &7862306411591725152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3793,7 +3794,7 @@ PrefabInstance:
       objectReference: {fileID: 1723958474238663497}
     - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
       propertyPath: gunDamage
-      value: 3.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
       propertyPath: playerCam
@@ -3809,7 +3810,7 @@ PrefabInstance:
       objectReference: {fileID: 7844851562090388885}
     - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
       propertyPath: headShotDamage
-      value: 4.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5704324832447295592, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
       propertyPath: m_Name
@@ -4107,6 +4108,10 @@ PrefabInstance:
       propertyPath: hitmarkerAnim
       value: 
       objectReference: {fileID: 7844851562090388885}
+    - target: {fileID: 1374800640835796719, guid: d38ab6f001732ce40a0b98db626aa018, type: 3}
+      propertyPath: headShotDamage
+      value: 21
+      objectReference: {fileID: 0}
     - target: {fileID: 2697314105388006367, guid: d38ab6f001732ce40a0b98db626aa018, type: 3}
       propertyPath: m_Volume
       value: 0.2

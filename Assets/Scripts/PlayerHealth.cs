@@ -12,11 +12,11 @@ public class PlayerHealth : NetworkBehaviour
     public GameObject playerBody;
     public GameObject playerBodyFirstPerson;
     public GameObject playerHead;
+    public DisplayHealth displayHealth;
 
     private Player player;
     private Color originalColorHead;
     private Color originalColorBody;
-
 
     public void Start()
     {
@@ -46,43 +46,44 @@ public class PlayerHealth : NetworkBehaviour
         DamageServerRpc(damageAmt, respawnLoc);
     }
 
-    
-    [ClientRpc]
-    public void DamageClientRpc(float damageAmt, Vector3 respawnLoc)
-    {
-        player.SetHealth(player.GetHealth() - damageAmt);
-        if(player.GetHealth() <= 0)
-        {
-            transform.GetComponent<CharacterController>().enabled = false;
-            transform.position = respawnLoc;
-            transform.GetComponent<CharacterController>().enabled = true;
-            StartCoroutine(ResetHealth());
-        }
-    }
-
     [ServerRpc(RequireOwnership = false)]
     public void DamageServerRpc(float damageAmt, Vector3 respawnLoc)
     {
-        if(!IsServer)
+        if (!IsServer)
         {
-            player.SetHealth(player.GetHealth() - damageAmt);
-            if (player.GetHealth() <= 0)
+            if (damageAmt >= player.GetHealth())
             {
                 transform.GetComponent<CharacterController>().enabled = false;
                 transform.position = respawnLoc;
                 transform.GetComponent<CharacterController>().enabled = true;
                 StartCoroutine(ResetHealth());
             }
+            else
+                player.SetHealth(player.GetHealth() - damageAmt);
         }
         DamageClientRpc(damageAmt, respawnLoc);
     }
 
+    [ClientRpc]
+    public void DamageClientRpc(float damageAmt, Vector3 respawnLoc)
+    {
+        if (damageAmt >= player.GetHealth())
+        {
+            transform.GetComponent<CharacterController>().enabled = false;
+            transform.position = respawnLoc;
+            transform.GetComponent<CharacterController>().enabled = true;
+            StartCoroutine(ResetHealth());
+        }
+        else
+            player.SetHealth(player.GetHealth() - damageAmt);
+    }
+
+
     IEnumerator ResetHealth()
     {
-        player.SetHealth(0);
-        yield return new WaitForSeconds(0.01f);
         player.SetHealth(player.GetMaxHealth());
         player.SetDeaths(player.GetDeaths() + 1);
+        displayHealth.FlashDamageIndicator();
         yield return new WaitForSeconds(0.1f);
         player.SetHealth(player.GetMaxHealth());
         foreach (RaycastShoot rcs in player.GetItemInHand().transform.parent.GetComponentsInChildren<RaycastShoot>())
@@ -92,6 +93,7 @@ public class PlayerHealth : NetworkBehaviour
         }
 
     }
+
 
     IEnumerator DamageFlash()
     {

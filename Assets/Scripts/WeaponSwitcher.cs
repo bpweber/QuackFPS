@@ -27,13 +27,13 @@ public class WeaponSwitcher : NetworkBehaviour
         if (!IsOwner) return;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))       
-            if (!isSwitching)
+            if (!isSwitching && activeWep != 0)
                 SwitchWeapon(0);       
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            if (!isSwitching)
+            if (!isSwitching && activeWep != 1)
                 SwitchWeapon(1); 
         if (Input.GetKeyDown(KeyCode.Alpha3))  
-            if (!isSwitching)
+            if (!isSwitching && activeWep != 2)
                 SwitchWeapon(2);       
     }
 
@@ -56,17 +56,15 @@ public class WeaponSwitcher : NetworkBehaviour
 
     private IEnumerator SwitchToWeapon(int wepIndex)
     {
-        if (!weps[wepIndex].GetComponent<Renderer>().enabled)
-        {
-            isSwitching = true;
-            DeselectAllWeapons();
-            yield return new WaitForSeconds(0.5f);
-            activeWep = wepIndex;
-            weps[wepIndex].GetComponent<Renderer>().enabled = true;
-            weps[wepIndex].transform.GetChild(0).GetComponent<Renderer>().enabled = true;
-            weps[wepIndex].GetComponent<RaycastShoot>().enabled = true;
-            isSwitching = false;
-        }
+        isSwitching = true;
+        DeselectAllWeapons();
+        yield return new WaitForSeconds(0.5f);
+        DeselectAllWeapons();
+        activeWep = wepIndex;
+        weps[wepIndex].GetComponent<Renderer>().enabled = true;
+        weps[wepIndex].transform.GetChild(0).GetComponent<Renderer>().enabled = true;
+        weps[wepIndex].GetComponent<RaycastShoot>().enabled = true;
+        isSwitching = false;
     }
 
     private void DeselectAllWeapons()

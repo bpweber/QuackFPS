@@ -71,7 +71,8 @@ public class DisplayHealth : NetworkBehaviour
 
     public void FlashDamageIndicator()
     {
-        damageSound.Play();
+        if(damageSound.enabled)
+            damageSound.Play();
         anim.SetTrigger("FlashDamage");
         anim.SetTrigger("UnflashDamage");
     }

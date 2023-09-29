@@ -108,7 +108,9 @@ public class RaycastShoot : NetworkBehaviour
 
                     float dmg = headShot ? headShotDamage : gunDamage;
                     if (dmg >= damagedPlayer.GetHealth())
+                    {
                         player.SetKills(player.GetKills() + 1);
+                    }
                     damagedPlayer.GetComponent<PlayerHealth>().Damage(dmg);       
                 }
                 else if(bulletHole != null)
