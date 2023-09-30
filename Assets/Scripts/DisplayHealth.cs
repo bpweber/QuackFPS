@@ -51,7 +51,7 @@ public class DisplayHealth : NetworkBehaviour
         int prevHealth = Int32.Parse(hpText.text);
 
         if(Math.Round(player.GetHealth(), 0) < prevHealth)
-            FlashDamageIndicator();
+            FlashDamageIndicator(false);
 
         hpText.SetText($"{Math.Round(player.GetHealth(), 0)}");
         healthBar.value = player.GetHealth() / player.GetMaxHealth();
@@ -69,11 +69,16 @@ public class DisplayHealth : NetworkBehaviour
         }
     }
 
-    public void FlashDamageIndicator()
+    public void FlashDamageIndicator(bool killShot)
     {
-        if(damageSound.enabled)
+        if (damageSound.enabled)
+        {
+            if(killShot)
+                damageSound.volume = 1f;
+            else
+                damageSound.volume = 0.5f;
             damageSound.Play();
+        }
         anim.SetTrigger("FlashDamage");
-        anim.SetTrigger("UnflashDamage");
     }
 }

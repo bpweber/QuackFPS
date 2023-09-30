@@ -15,15 +15,10 @@ public class PlayerHealth : NetworkBehaviour
     public DisplayHealth displayHealth;
 
     private Player player;
-    private Color originalColorHead;
-    private Color originalColorBody;
 
     public void Start()
     {
         player = transform.root.GetComponent<Player>();
-
-        originalColorHead = transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.color;
-        originalColorBody = transform.GetChild(1).GetComponent<Renderer>().material.color;
 
         if (IsLocalPlayer)
         {
@@ -41,7 +36,7 @@ public class PlayerHealth : NetworkBehaviour
 
     public void Damage(float damageAmt)
     {
-        StartCoroutine("DamageFlash");
+        StartCoroutine(DamageFlash(damageAmt >= player.GetHealth()));
         Vector3 respawnLoc = new Vector3(Random.Range(-10f, 10f), 1, Random.Range(-10f, 10f));
         DamageServerRpc(damageAmt, respawnLoc);
     }
@@ -83,7 +78,7 @@ public class PlayerHealth : NetworkBehaviour
     {
         player.SetHealth(player.GetMaxHealth());
         player.SetDeaths(player.GetDeaths() + 1);
-        displayHealth.FlashDamageIndicator();
+        displayHealth.FlashDamageIndicator(true);
         yield return new WaitForSeconds(0.1f);
         player.SetHealth(player.GetMaxHealth());
         foreach (RaycastShoot rcs in player.GetItemInHand().transform.parent.GetComponentsInChildren<RaycastShoot>())
@@ -95,20 +90,22 @@ public class PlayerHealth : NetworkBehaviour
     }
 
 
-    IEnumerator DamageFlash()
+    IEnumerator DamageFlash(bool killShot)
     {
-        //transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.color = Color.red;
-        //transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
-        //transform.GetChild(2).GetComponent<Renderer>().material.color = Color.red;
         yield return new WaitForSeconds(0.03f);
-        hitmarkerAudio1.volume = 0.125f;
-        hitmarkerAudio2.volume = 0.25f;
+        if(killShot)
+        {
+            hitmarkerAudio1.volume = 0.5f;
+            hitmarkerAudio2.volume = 1f;
+        }
+        else
+        {
+            hitmarkerAudio1.volume = 0.125f;
+            hitmarkerAudio2.volume = 0.25f;
+        }
         hitmarkerAudio1.Play();
         hitmarkerAudio2.Play();
         yield return new WaitForSeconds(0.02f);
-        //transform.GetChild(0).GetChild(0).GetComponent<Renderer>().material.color = originalColorHead;
-        //transform.GetChild(1).GetComponent<Renderer>().material.color = originalColorBody;
-        //transform.GetChild(2).GetComponent<Renderer>().material.color = originalColorHead;
         StopCoroutine("DamageFlash");
     }
 }
