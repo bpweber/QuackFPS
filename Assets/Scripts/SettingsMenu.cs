@@ -37,6 +37,7 @@ public class SettingsMenu : MonoBehaviour
     public void SetSens(float sens)
     {
         MouseLook.mouseSensitivity = sens;
+        MouseLook.effectiveSens = sens;
     }
 
     public void SetZoomSens(float zoomSens)

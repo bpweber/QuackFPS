@@ -9,7 +9,7 @@ public class MouseLook : NetworkBehaviour
     public static float mouseSensitivity = 1.50f;
     public static float zoomSens = 0.82f;
     public GameObject cameraHolder;
-    public float effectiveSens = mouseSensitivity;
+    public static float effectiveSens = mouseSensitivity;
 
     private float xRotation = 0f;
     private Transform playerBody;
