@@ -11016,7 +11016,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3122665674233981094, guid: f1045dac69f39b84a91310ed4b253d33, type: 3}
       propertyPath: powerupRespawnTimer
-      value: 60
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -17382,7 +17382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3122665674233981094, guid: f1045dac69f39b84a91310ed4b253d33, type: 3}
       propertyPath: powerupRespawnTimer
-      value: 60
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

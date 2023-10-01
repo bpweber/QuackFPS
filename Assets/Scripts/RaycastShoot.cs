@@ -43,6 +43,8 @@ public class RaycastShoot : NetworkBehaviour
         recoilAnim = GetComponent<Animator>();
         if (gunEnd.transform.childCount > 0)
             muzzleFlash = gunEnd.transform.GetChild(0).gameObject;
+        if (fireRate >= 0.5)
+            shotDuration = new WaitForSeconds(fireRate);
     }
     
     void Update()
@@ -124,9 +126,9 @@ public class RaycastShoot : NetworkBehaviour
                 }
             }    
             timeOfLastShot = Time.time;
-        }    
-        
-        if (laserLine != null)
+        }
+
+        if (laserLine != null && (Time.time > nextFire || fireRate < 0.1f))
         {
             Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(.5f, .5f, 0));
             RaycastHit hit;
@@ -180,10 +182,9 @@ public class RaycastShoot : NetworkBehaviour
             yield return new WaitForSeconds(0.3f);
             if (ammo < maxAmmo)
                 ammo = maxAmmo;
-            else if (ammo < maxAmmo * 1.5)
-                ammo += (maxAmmo / 2);
-            else
+            else if (ammo < maxAmmo * 2)
                 ammo += (maxAmmo / 10) > 1 ? (maxAmmo / 10) : 1;
+
             if (ammo > maxAmmo * 2)
                 ammo = maxAmmo * 2;
             isReloading = false;
