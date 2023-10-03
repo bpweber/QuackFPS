@@ -6,8 +6,9 @@ public class PlayerAmmo : MonoBehaviour
 {
     public int wepIndex = -1;
     public float powerupRespawnTimer = 1f;
+    public bool oneTimeUse = true;
 
-    private float nextPowerupTime;
+    public float nextPowerupTime;
     private bool powerupEnabled = true;
     private Transform wepHolder;
     private RaycastShoot rcs;
@@ -26,8 +27,11 @@ public class PlayerAmmo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(oneTimeUse)
+            powerupRespawnTimer = float.MaxValue;
         if (powerupEnabled)
         {
+            other.GetComponent<WeaponSwitcher>().hasPickedUp[wepIndex] = true;
             wepHolder = other.GetComponent<Player>().GetItemInHand().transform.parent;
             rcs = wepHolder.GetChild(wepIndex).GetComponent<RaycastShoot>();
             if (rcs.ammo < rcs.maxAmmo * 2)

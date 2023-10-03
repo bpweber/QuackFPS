@@ -17207,8 +17207,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 139056929615219086, guid: 30ffe77bd31b70f4b9afbb76f81e3d9e, type: 3}
-      propertyPath: powerupRespawnTimer
-      value: 1
+      propertyPath: oneTimeUse
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6538967151016313490, guid: 30ffe77bd31b70f4b9afbb76f81e3d9e, type: 3}
       propertyPath: m_Name
@@ -17272,8 +17272,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 12063726502776990, guid: 53a256a9daa5c074eb850bc648b19929, type: 3}
-      propertyPath: powerupRespawnTimer
-      value: 1
+      propertyPath: oneTimeUse
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3333053432774625683, guid: 53a256a9daa5c074eb850bc648b19929, type: 3}
       propertyPath: m_Controller

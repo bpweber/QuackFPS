@@ -81,12 +81,19 @@ public class PlayerHealth : NetworkBehaviour
         displayHealth.FlashDamageIndicator(true);
         yield return new WaitForSeconds(0.1f);
         player.SetHealth(player.GetMaxHealth());
-        foreach (RaycastShoot rcs in player.GetItemInHand().transform.parent.GetComponentsInChildren<RaycastShoot>())
-        {
-            rcs.recoilAnim.SetTrigger("SlideForward");
-            rcs.ammo = rcs.maxAmmo;
-        }
 
+        RaycastShoot[] weps = player.GetItemInHand().transform.parent.GetComponentsInChildren<RaycastShoot>();
+        weps[0].ammo = weps[0].maxAmmo;
+        for(int i = 1; i < weps.Length; i++)       
+            weps[i].ammo = 0;
+
+        WeaponSwitcher weaponSwitcher = player.GetComponent<WeaponSwitcher>();
+        weaponSwitcher.SwitchWeapon(0);
+        weaponSwitcher.hasPickedUp[1] = false;
+        weaponSwitcher.hasPickedUp[2] = false;
+
+        foreach (RaycastShoot rcs in player.GetItemInHand().transform.parent.GetComponentsInChildren<RaycastShoot>())      
+            rcs.recoilAnim.SetTrigger("SlideForward");     
     }
 
 

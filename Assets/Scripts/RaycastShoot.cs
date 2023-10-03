@@ -25,6 +25,9 @@ public class RaycastShoot : NetworkBehaviour
     public Animator hitmarkerAnim;
     public Animator killmarkerAnim;
 
+    public GameObject lgDropPrefab;
+    public GameObject railDropPrefab;
+
     private Player player;
     private GameObject muzzleFlash;
     private LineRenderer laserLine;
@@ -113,6 +116,11 @@ public class RaycastShoot : NetworkBehaviour
                     {
                         player.SetKills(player.GetKills() + 1);
                         killmarkerAnim.SetTrigger("FlashDamage");
+
+
+                        Vector3 deathPos = damagedPlayer.transform.position;
+                          
+                        StartCoroutine(DropWeapon(damagedPlayer.GetComponent<WeaponSwitcher>().activeWep, deathPos));
                     }
                     else
                         hitmarkerAnim.SetTrigger("FlashDamage");
@@ -143,6 +151,21 @@ public class RaycastShoot : NetworkBehaviour
         if(!PauseMenu.GameIsPaused && canReloadWithR && Input.GetKeyDown(KeyCode.R) && !isReloading && (ammo < maxAmmo))
         {
             StartCoroutine(Reload());
+        }
+    }
+
+    private IEnumerator DropWeapon(int wepDropIndex, Vector3 pos)
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (wepDropIndex == 1)
+        {
+            GameObject wepDrop = Instantiate(lgDropPrefab, pos, Quaternion.identity);
+            Destroy(wepDrop, 10);
+        }
+        else if (wepDropIndex == 2)
+        {
+            GameObject wepDrop = Instantiate(railDropPrefab, pos, Quaternion.identity);
+            Destroy(wepDrop, 10);
         }
     }
 

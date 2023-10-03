@@ -11,6 +11,7 @@ public class WeaponSwitcher : NetworkBehaviour
     public GameObject G19;
     public GameObject LG;
     public GameObject Rail;
+    public bool[] hasPickedUp = new bool[3];
 
     private GameObject[] weps = new GameObject[3];
     private bool isSwitching = false;
@@ -20,6 +21,8 @@ public class WeaponSwitcher : NetworkBehaviour
         weps[0] = G19;
         weps[1] = LG;
         weps[2] = Rail;
+
+        hasPickedUp[0] = true;
     }
 
     void Update()
@@ -27,13 +30,13 @@ public class WeaponSwitcher : NetworkBehaviour
         if (!IsOwner) return;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))       
-            if (!isSwitching && activeWep != 0)
+            if (!isSwitching && activeWep != 0 && hasPickedUp[0])
                 SwitchWeapon(0);       
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            if (!isSwitching && activeWep != 1)
+            if (!isSwitching && activeWep != 1 && hasPickedUp[1])
                 SwitchWeapon(1); 
         if (Input.GetKeyDown(KeyCode.Alpha3))  
-            if (!isSwitching && activeWep != 2)
+            if (!isSwitching && activeWep != 2 && hasPickedUp[2])
                 SwitchWeapon(2);       
     }
 

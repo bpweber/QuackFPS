@@ -3886,6 +3886,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1296902362924798128}
     m_Modifications:
     - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
+      propertyPath: ammo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1723958474238663497}
@@ -3906,6 +3910,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8966918559197954203}
     - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
+      propertyPath: lgDropPrefab
+      value: 
+      objectReference: {fileID: 3471777715960101983, guid: 53a256a9daa5c074eb850bc648b19929, type: 3}
+    - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
       propertyPath: hitmarkerAnim
       value: 
       objectReference: {fileID: 7844851562090388885}
@@ -3921,6 +3929,10 @@ PrefabInstance:
       propertyPath: killmarkerAnim
       value: 
       objectReference: {fileID: 3459478232847666386}
+    - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
+      propertyPath: railDropPrefab
+      value: 
+      objectReference: {fileID: 6538967151016313490, guid: 30ffe77bd31b70f4b9afbb76f81e3d9e, type: 3}
     - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
       propertyPath: maxInnacuracyMultiplier
       value: 0
@@ -4059,7 +4071,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
       propertyPath: ammo
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
       propertyPath: player
@@ -4082,6 +4094,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9090298955150079793}
     - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
+      propertyPath: lgDropPrefab
+      value: 
+      objectReference: {fileID: 3471777715960101983, guid: 53a256a9daa5c074eb850bc648b19929, type: 3}
+    - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
       propertyPath: hitmarkerAnim
       value: 
       objectReference: {fileID: 7844851562090388885}
@@ -4097,6 +4113,10 @@ PrefabInstance:
       propertyPath: killmarkerAnim
       value: 
       objectReference: {fileID: 3459478232847666386}
+    - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
+      propertyPath: railDropPrefab
+      value: 
+      objectReference: {fileID: 5704324832447295592, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
     - target: {fileID: 2697314105388006367, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
       propertyPath: m_audioClip
       value: 
@@ -4254,6 +4274,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2928986350194863204}
     - target: {fileID: 1374800640835796719, guid: d38ab6f001732ce40a0b98db626aa018, type: 3}
+      propertyPath: lgDropPrefab
+      value: 
+      objectReference: {fileID: 3471777715960101983, guid: 53a256a9daa5c074eb850bc648b19929, type: 3}
+    - target: {fileID: 1374800640835796719, guid: d38ab6f001732ce40a0b98db626aa018, type: 3}
       propertyPath: hitmarkerAnim
       value: 
       objectReference: {fileID: 7844851562090388885}
@@ -4269,6 +4293,10 @@ PrefabInstance:
       propertyPath: killmarkerAnim
       value: 
       objectReference: {fileID: 3459478232847666386}
+    - target: {fileID: 1374800640835796719, guid: d38ab6f001732ce40a0b98db626aa018, type: 3}
+      propertyPath: railDropPrefab
+      value: 
+      objectReference: {fileID: 6538967151016313490, guid: 30ffe77bd31b70f4b9afbb76f81e3d9e, type: 3}
     - target: {fileID: 2697314105388006367, guid: d38ab6f001732ce40a0b98db626aa018, type: 3}
       propertyPath: m_Volume
       value: 0.2

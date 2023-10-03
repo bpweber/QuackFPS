@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wepIndex: 2
-  wepHolder: {fileID: 0}
+  powerupRespawnTimer: 1
 --- !u!95 &7031436469922295345
 Animator:
   serializedVersion: 5
@@ -112,7 +112,7 @@ Animator:
   m_GameObject: {fileID: 6538967151016313490}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cfce24f440c338e4093c5143d9bb9007, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9ae4ce37f1ef93c4bb7cdd600dedb9ac, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
