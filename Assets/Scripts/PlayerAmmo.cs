@@ -27,7 +27,7 @@ public class PlayerAmmo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(oneTimeUse)
+        if (oneTimeUse)
             powerupRespawnTimer = float.MaxValue;
         if (powerupEnabled)
         {

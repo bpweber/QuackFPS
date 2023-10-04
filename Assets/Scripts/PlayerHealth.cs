@@ -88,7 +88,8 @@ public class PlayerHealth : NetworkBehaviour
             weps[i].ammo = 0;
 
         WeaponSwitcher weaponSwitcher = player.GetComponent<WeaponSwitcher>();
-        weaponSwitcher.SwitchWeapon(0);
+        if(weaponSwitcher.activeWep != 0)
+            weaponSwitcher.SwitchWeapon(0);
         weaponSwitcher.hasPickedUp[1] = false;
         weaponSwitcher.hasPickedUp[2] = false;
 
