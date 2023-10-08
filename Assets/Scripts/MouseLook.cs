@@ -10,10 +10,13 @@ public class MouseLook : NetworkBehaviour
     public static float zoomSens = 0.82f;
     public GameObject cameraHolder;
     public static float effectiveSens = mouseSensitivity;
+    public Animator scopeAnim;
 
     private float xRotation = 0f;
     private Transform playerBody;
     private Animator anim;
+    private WeaponSwitcher weaponSwitcher;
+    private bool zoomed;
 
 
     public override void OnNetworkSpawn()
@@ -28,7 +31,11 @@ public class MouseLook : NetworkBehaviour
     }
 
     void Start()
-    {
+    {    
+        if(IsOwner)
+        {
+            weaponSwitcher = transform.root.GetComponent<WeaponSwitcher>();
+        }
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -48,15 +55,21 @@ public class MouseLook : NetworkBehaviour
             playerBody.Rotate(Vector3.up * mouseX);
 
 
-            if (Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown("Fire2") && !weaponSwitcher.isSwitching)
             {
                 anim.SetTrigger("ZoomIn");
+                if(playerBody.GetComponent<WeaponSwitcher>().activeWep == 3)
+                    scopeAnim.SetTrigger("Scope");
                 effectiveSens = mouseSensitivity * zoomSens;
+                zoomed = true;
             }
-            else if(Input.GetButtonUp("Fire2"))
+            else if(Input.GetButtonUp("Fire2") && zoomed)
             {
                 anim.SetTrigger("ZoomOut");
+                if (playerBody.GetComponent<WeaponSwitcher>().activeWep == 3)
+                    scopeAnim.SetTrigger("UnScope");
                 effectiveSens = mouseSensitivity;
+                zoomed = false;
             }
         }
     }

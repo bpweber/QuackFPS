@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponSwitcher : NetworkBehaviour
 {
@@ -11,23 +12,36 @@ public class WeaponSwitcher : NetworkBehaviour
     public GameObject G19;
     public GameObject LG;
     public GameObject Rail;
-    public bool[] hasPickedUp = new bool[3];
+    public GameObject AWP;
+    public bool[] hasPickedUp = new bool[4];
+    public Image crosshair;
+    public Animator zoomAnim;
+    public Animator scopeAnim;
 
-    private GameObject[] weps = new GameObject[3];
-    private bool isSwitching = false;
+    private GameObject[] weps = new GameObject[4];
+    public bool isSwitching = false;
 
     private void Start()
     {
+        crosshair.enabled = IsOwner;
+
         weps[0] = G19;
         weps[1] = LG;
         weps[2] = Rail;
+        weps[3] = AWP;
 
         hasPickedUp[0] = true;
+        hasPickedUp[3] = true;
     }
 
     void Update()
     {
         if (!IsOwner) return;
+
+        if(activeWep == 3)
+            crosshair.enabled = false;
+        else 
+            crosshair.enabled = true;
 
         if (Input.GetKeyDown(KeyCode.Alpha1))       
             if (!isSwitching && activeWep != 0 && hasPickedUp[0])
@@ -37,11 +51,20 @@ public class WeaponSwitcher : NetworkBehaviour
                 SwitchWeapon(1); 
         if (Input.GetKeyDown(KeyCode.Alpha3))  
             if (!isSwitching && activeWep != 2 && hasPickedUp[2])
-                SwitchWeapon(2);       
+                SwitchWeapon(2);
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            if (!isSwitching && activeWep != 3 && hasPickedUp[3])
+                SwitchWeapon(3);
     }
 
     public void SwitchWeapon(int wep)
     {
+        if (Input.GetButton("Fire2"))
+        {
+            zoomAnim.SetTrigger("ZoomOut");
+            if (activeWep == 3)
+                scopeAnim.SetTrigger("UnScope");
+        }
         SwitchWeaponServerRpc(wep);
     }
 
