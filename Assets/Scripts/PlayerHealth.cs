@@ -13,6 +13,7 @@ public class PlayerHealth : NetworkBehaviour
     public GameObject playerBodyFirstPerson;
     public GameObject playerHead;
     public DisplayHealth displayHealth;
+    public Transform spawnList;
 
     private Player player;
 
@@ -37,7 +38,8 @@ public class PlayerHealth : NetworkBehaviour
     public void Damage(float damageAmt)
     {
         StartCoroutine(DamageFlash(damageAmt >= player.GetHealth()));
-        Vector3 respawnLoc = new Vector3(Random.Range(-10f, 10f), 1, Random.Range(-10f, 10f));
+        int randSpawnNum = Random.Range(0, spawnList.childCount);
+        Vector3 respawnLoc = spawnList.GetChild(randSpawnNum).position;
         DamageServerRpc(damageAmt, respawnLoc);
     }
 
@@ -50,6 +52,7 @@ public class PlayerHealth : NetworkBehaviour
             {
                 transform.GetComponent<CharacterController>().enabled = false;
                 transform.position = respawnLoc;
+                transform.LookAt(spawnList);
                 transform.GetComponent<CharacterController>().enabled = true;
                 StartCoroutine(ResetHealth());
             }
@@ -66,6 +69,7 @@ public class PlayerHealth : NetworkBehaviour
         {
             transform.GetComponent<CharacterController>().enabled = false;
             transform.position = respawnLoc;
+            transform.LookAt(spawnList);
             transform.GetComponent<CharacterController>().enabled = true;
             StartCoroutine(ResetHealth());
         }
@@ -86,12 +90,14 @@ public class PlayerHealth : NetworkBehaviour
         weps[0].ammo = weps[0].maxAmmo;
         for(int i = 1; i < weps.Length; i++)       
             weps[i].ammo = 0;
+        weps[4].ammo = weps[4].maxAmmo;
 
         WeaponSwitcher weaponSwitcher = player.GetComponent<WeaponSwitcher>();
         if(weaponSwitcher.activeWep != 0)
             weaponSwitcher.SwitchWeapon(0);
         weaponSwitcher.hasPickedUp[1] = false;
         weaponSwitcher.hasPickedUp[2] = false;
+        weaponSwitcher.hasPickedUp[3] = false;
 
         foreach (RaycastShoot rcs in player.GetItemInHand().transform.parent.GetComponentsInChildren<RaycastShoot>())      
             if(rcs.recoilAnim != null)

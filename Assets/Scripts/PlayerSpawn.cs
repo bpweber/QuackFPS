@@ -6,16 +6,16 @@ using UnityEngine.Networking;
 
 public class PlayerSpawn : NetworkBehaviour
 {
+    public Transform spawnList;
 
     public override void OnNetworkSpawn()
     {
-        base.OnNetworkSpawn();
-
-        float randX = Random.Range(-10f, 10f);
-        float randZ = Random.Range(-10f, 10f);
-
+        int randSpawnNum = Random.Range(0, spawnList.childCount);
         transform.GetComponent<CharacterController>().enabled = false;
-        transform.position = new Vector3(randX, 1, randZ);
+        transform.position = spawnList.GetChild(randSpawnNum).position;
+        transform.LookAt(spawnList);
         transform.GetComponent<CharacterController>().enabled = true;
+
+        base.OnNetworkSpawn();
     }
 }

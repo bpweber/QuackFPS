@@ -33,7 +33,7 @@ public class WeaponSwitcher : NetworkBehaviour
         weps[4] = EngSword;
 
         hasPickedUp[0] = true;
-        hasPickedUp[3] = true;
+        //hasPickedUp[3] = true;
         hasPickedUp[4] = true;
     }
 
