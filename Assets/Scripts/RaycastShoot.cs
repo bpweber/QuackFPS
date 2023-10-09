@@ -10,6 +10,7 @@ public class RaycastShoot : NetworkBehaviour
     public float gunDamage = 10f;
     public float headShotDamage = 20f; 
     public float fireRate = .1f;
+    public float range = float.MaxValue;
     public float maxInnacuracyMultiplier = 3f;
     public bool fullAuto = false;
     public int ammo = 100;
@@ -102,7 +103,7 @@ public class RaycastShoot : NetworkBehaviour
             float randY = Random.Range(0.02f * innacuracyMultiplier, -0.01f * innacuracyMultiplier);
             DirectionRay = playerCam.transform.TransformDirection(randX, randY, 1);
 
-            if (Physics.Raycast(rayOrigin, DirectionRay, out hit, float.MaxValue, ~Physics.IgnoreRaycastLayer))
+            if (Physics.Raycast(rayOrigin, DirectionRay, out hit, range, ~Physics.IgnoreRaycastLayer))
             {
                 Player damagedPlayer = hit.collider.GetComponentInParent<Player>();
 
@@ -141,7 +142,7 @@ public class RaycastShoot : NetworkBehaviour
             Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(.5f, .5f, 0));
             RaycastHit hit;
             laserLine.SetPosition(0, gunEnd.position);
-            if (Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, float.MaxValue, ~Physics.IgnoreRaycastLayer))
+            if (Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, range, ~Physics.IgnoreRaycastLayer))
                 laserLine.SetPosition(1, hit.point);
             else
                 laserLine.SetPosition(1, rayOrigin + (playerCam.transform.forward * 1000));
@@ -178,9 +179,12 @@ public class RaycastShoot : NetworkBehaviour
         if (muzzleFlash != null)
             muzzleFlash.SetActive(true);
 
-        recoilAnim.SetTrigger("SlideBack");
-        if (ammo > 0)
-            recoilAnim.SetTrigger("SlideForward");
+        if (recoilAnim != null)
+        {
+            recoilAnim.SetTrigger("SlideBack");
+            if (ammo > 0)
+                recoilAnim.SetTrigger("SlideForward");
+        }
 
         yield return shotDuration;
 
@@ -199,9 +203,11 @@ public class RaycastShoot : NetworkBehaviour
 
             yield return new WaitForSeconds(0.05f);
             if(ammo > 0)
-                recoilAnim.SetTrigger("SlideBack");
+                if(recoilAnim != null)  
+                    recoilAnim.SetTrigger("SlideBack");
             yield return new WaitForSeconds(0.5f);
-            recoilAnim.SetTrigger("SlideForward");
+            if (recoilAnim != null)
+                recoilAnim.SetTrigger("SlideForward");
             yield return new WaitForSeconds(0.3f);
             if (ammo < maxAmmo)
                 ammo = maxAmmo;

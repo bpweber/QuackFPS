@@ -94,7 +94,8 @@ public class PlayerHealth : NetworkBehaviour
         weaponSwitcher.hasPickedUp[2] = false;
 
         foreach (RaycastShoot rcs in player.GetItemInHand().transform.parent.GetComponentsInChildren<RaycastShoot>())      
-            rcs.recoilAnim.SetTrigger("SlideForward");     
+            if(rcs.recoilAnim != null)
+                rcs.recoilAnim.SetTrigger("SlideForward");     
     }
 
 

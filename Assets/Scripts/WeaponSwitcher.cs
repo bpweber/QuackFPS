@@ -13,12 +13,13 @@ public class WeaponSwitcher : NetworkBehaviour
     public GameObject LG;
     public GameObject Rail;
     public GameObject AWP;
-    public bool[] hasPickedUp = new bool[4];
+    public GameObject EngSword;
+    public bool[] hasPickedUp = new bool[5];
     public Image crosshair;
     public Animator zoomAnim;
     public Animator scopeAnim;
 
-    private GameObject[] weps = new GameObject[4];
+    private GameObject[] weps = new GameObject[5];
     public bool isSwitching = false;
 
     private void Start()
@@ -29,9 +30,11 @@ public class WeaponSwitcher : NetworkBehaviour
         weps[1] = LG;
         weps[2] = Rail;
         weps[3] = AWP;
+        weps[4] = EngSword;
 
         hasPickedUp[0] = true;
         hasPickedUp[3] = true;
+        hasPickedUp[4] = true;
     }
 
     void Update()
@@ -55,6 +58,9 @@ public class WeaponSwitcher : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4))
             if (!isSwitching && activeWep != 3 && hasPickedUp[3])
                 SwitchWeapon(3);
+        if (Input.GetKeyDown(KeyCode.Q))
+            if (!isSwitching && activeWep != 4 && hasPickedUp[4])
+                SwitchWeapon(4);
     }
 
     public void SwitchWeapon(int wep)
