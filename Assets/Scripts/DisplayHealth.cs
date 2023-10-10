@@ -15,7 +15,6 @@ public class DisplayHealth : NetworkBehaviour
     public Animator anim;
 
     private Player player;
-    private PlayerHealth playerHealth;
     private AudioSource damageSound;
     private TMP_Text hpText;
     private GameObject sliderObject;

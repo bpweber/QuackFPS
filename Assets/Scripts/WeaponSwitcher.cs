@@ -33,7 +33,6 @@ public class WeaponSwitcher : NetworkBehaviour
         weps[4] = EngSword;
 
         hasPickedUp[0] = true;
-        //hasPickedUp[3] = true;
         hasPickedUp[4] = true;
     }
 
@@ -41,10 +40,8 @@ public class WeaponSwitcher : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        if(activeWep == 3)
-            crosshair.enabled = false;
-        else 
-            crosshair.enabled = true;
+        crosshair.enabled = activeWep != 3;
+
 
         if (Input.GetKeyDown(KeyCode.Alpha1))       
             if (!isSwitching && activeWep != 0 && hasPickedUp[0])

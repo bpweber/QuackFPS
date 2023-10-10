@@ -34,8 +34,6 @@ public class DisplayKDA : NetworkBehaviour
             deaths = player.GetDeaths();
             if (deaths == 0)
                 kdr = totalKills;
-            //else if (totalKills == 0)
-            //    kdr = -deaths;
             else
                 kdr = Math.Round(((double)totalKills / (double)deaths), 2);
 

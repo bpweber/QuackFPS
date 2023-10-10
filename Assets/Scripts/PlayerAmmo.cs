@@ -20,7 +20,6 @@ public class PlayerAmmo : MonoBehaviour
             GetComponent<BoxCollider>().enabled = true;
             foreach (MeshRenderer renderer in GetComponentsInChildren<MeshRenderer>())
                 renderer.enabled = true;
-            //GetComponentInChildren<MeshRenderer>().enabled = true;
             powerupEnabled = true;
         }
     }
