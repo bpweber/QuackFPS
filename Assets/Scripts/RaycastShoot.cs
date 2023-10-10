@@ -12,6 +12,7 @@ public class RaycastShoot : NetworkBehaviour
     public float fireRate = .1f;
     public float range = float.MaxValue;
     public float maxInnacuracyMultiplier = 3f;
+    public bool isAccurateWhileJumping = true;
     public bool fullAuto = false;
     public int ammo = 100;
     public int maxAmmo = 100;
@@ -57,7 +58,7 @@ public class RaycastShoot : NetworkBehaviour
 
         if (!PauseMenu.GameIsPaused && (Input.GetButtonDown("Fire1") || (fullAuto && Input.GetButton("Fire1") && ammo > 0)) && Time.time > nextFire /*&& ammo > 0*/ && !isReloading)
         {
-            if(ammo < 1)
+            if (ammo < 1)
             {
                 dryFire.Play();
                 return;
@@ -98,6 +99,9 @@ public class RaycastShoot : NetworkBehaviour
             {
                 innacuracyMultiplier = maxInnacuracyMultiplier;
             }
+
+            if (!player.transform.GetComponent<CharacterController>().isGrounded && !isAccurateWhileJumping)
+                innacuracyMultiplier = (maxInnacuracyMultiplier * 2 > 0) ? (maxInnacuracyMultiplier * 2) : 2;
 
             float randX = Random.Range(0.01f * innacuracyMultiplier, -0.01f * innacuracyMultiplier);
             float randY = Random.Range(0.02f * innacuracyMultiplier, -0.01f * innacuracyMultiplier);
@@ -145,7 +149,7 @@ public class RaycastShoot : NetworkBehaviour
             if (Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, range, ~Physics.IgnoreRaycastLayer))
                 laserLine.SetPosition(1, hit.point);
             else
-                laserLine.SetPosition(1, rayOrigin + (playerCam.transform.forward * 1000));
+                laserLine.SetPosition(1, rayOrigin + (playerCam.transform.forward * range));
 
         }
 

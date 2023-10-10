@@ -19,8 +19,10 @@ public class DisplayAmmo : NetworkBehaviour
     void Start()
     {
         if (IsOwner)
+        {
             player = transform.root.GetComponent<Player>();
-        weaponSwitcher = player.GetComponent<WeaponSwitcher>();
+            weaponSwitcher = player.GetComponent<WeaponSwitcher>();
+        }
         ammoText = GetComponent<TMP_Text>();
         gunImg = ammoText.transform.GetChild(0).GetComponent<Image>();
         awpImg = ammoText.transform.GetChild(1).GetComponent<Image>();
