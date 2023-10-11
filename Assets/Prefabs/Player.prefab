@@ -4414,7 +4414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunDamage: 100
   headShotDamage: 100
-  fireRate: 1
+  fireRate: 0.86
   range: 3
   maxInnacuracyMultiplier: 0
   isAccurateWhileJumping: 1
@@ -4433,6 +4433,7 @@ MonoBehaviour:
   killmarkerAnim: {fileID: 3459478232847666386}
   lgDropPrefab: {fileID: 3471777715960101983, guid: 53a256a9daa5c074eb850bc648b19929, type: 3}
   railDropPrefab: {fileID: 6538967151016313490, guid: 30ffe77bd31b70f4b9afbb76f81e3d9e, type: 3}
+  deadPlayerPrefab: {fileID: 7636220422185255073, guid: ca85f9b3666de5b428c7163ac62291b1, type: 3}
 --- !u!82 &3103672530206927452
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4808,6 +4809,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6538967151016313490, guid: 30ffe77bd31b70f4b9afbb76f81e3d9e, type: 3}
     - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
+      propertyPath: deadPlayerPrefab
+      value: 
+      objectReference: {fileID: 7636220422185255073, guid: ca85f9b3666de5b428c7163ac62291b1, type: 3}
+    - target: {fileID: 1374800640835796719, guid: 70b93dc8bbe5e534490cd826a6dc0512, type: 3}
       propertyPath: maxInnacuracyMultiplier
       value: 0
       objectReference: {fileID: 0}
@@ -5007,6 +5012,10 @@ PrefabInstance:
       propertyPath: railDropPrefab
       value: 
       objectReference: {fileID: 6538967151016313490, guid: 30ffe77bd31b70f4b9afbb76f81e3d9e, type: 3}
+    - target: {fileID: 1374800640835796719, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
+      propertyPath: deadPlayerPrefab
+      value: 
+      objectReference: {fileID: 7636220422185255073, guid: ca85f9b3666de5b428c7163ac62291b1, type: 3}
     - target: {fileID: 2697314105388006367, guid: 69f4421ea61cceb47baea116cfca509d, type: 3}
       propertyPath: m_audioClip
       value: 
@@ -5261,6 +5270,10 @@ PrefabInstance:
       propertyPath: railDropPrefab
       value: 
       objectReference: {fileID: 6538967151016313490, guid: 30ffe77bd31b70f4b9afbb76f81e3d9e, type: 3}
+    - target: {fileID: 1374800640835796719, guid: d38ab6f001732ce40a0b98db626aa018, type: 3}
+      propertyPath: deadPlayerPrefab
+      value: 
+      objectReference: {fileID: 7636220422185255073, guid: ca85f9b3666de5b428c7163ac62291b1, type: 3}
     - target: {fileID: 2697314105388006367, guid: d38ab6f001732ce40a0b98db626aa018, type: 3}
       propertyPath: m_Volume
       value: 0.2
@@ -5504,7 +5517,7 @@ MonoBehaviour:
   headShotDamage: 400
   fireRate: 1.5
   range: 1000
-  maxInnacuracyMultiplier: 2
+  maxInnacuracyMultiplier: 4
   isAccurateWhileJumping: 0
   fullAuto: 0
   ammo: 0
@@ -5521,6 +5534,7 @@ MonoBehaviour:
   killmarkerAnim: {fileID: 3459478232847666386}
   lgDropPrefab: {fileID: 3471777715960101983, guid: 53a256a9daa5c074eb850bc648b19929, type: 3}
   railDropPrefab: {fileID: 6538967151016313490, guid: 30ffe77bd31b70f4b9afbb76f81e3d9e, type: 3}
+  deadPlayerPrefab: {fileID: 7636220422185255073, guid: ca85f9b3666de5b428c7163ac62291b1, type: 3}
 --- !u!82 &6184612779690688124
 AudioSource:
   m_ObjectHideFlags: 0

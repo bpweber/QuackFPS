@@ -4,6 +4,7 @@ using System.IO;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class RaycastShoot : NetworkBehaviour
 {
@@ -26,9 +27,9 @@ public class RaycastShoot : NetworkBehaviour
     public Animator recoilAnim;
     public Animator hitmarkerAnim;
     public Animator killmarkerAnim;
-
     public GameObject lgDropPrefab;
     public GameObject railDropPrefab;
+    public GameObject deadPlayerPrefab;
 
     private Player player;
     private GameObject muzzleFlash;
@@ -56,7 +57,7 @@ public class RaycastShoot : NetworkBehaviour
     {
         if (!IsLocalPlayer) return;
 
-        if (!PauseMenu.GameIsPaused && (Input.GetButtonDown("Fire1") || (fullAuto && Input.GetButton("Fire1") && ammo > 0)) && Time.time > nextFire /*&& ammo > 0*/ && !isReloading)
+        if (!PauseMenu.GameIsPaused && (Input.GetButtonDown("Fire1") || (fullAuto && Input.GetButton("Fire1") && ammo > 0)) && Time.time > nextFire && !isReloading)
         {
             if (ammo < 1)
             {
@@ -80,55 +81,64 @@ public class RaycastShoot : NetworkBehaviour
 
             Vector3 DirectionRay;
 
-            float innacuracyMultiplier = -1f;
+            float innacuracyMultiplier = 0 ;
 
-          
-            if(numShotsInBurst <= 2)
+            switch (numShotsInBurst)
             {
-                innacuracyMultiplier = 0;
-            }
-            else if(numShotsInBurst > 2 && numShotsInBurst <= 5)
-            {
-                innacuracyMultiplier = maxInnacuracyMultiplier / 3;
-            }
-            else if (numShotsInBurst > 5 && numShotsInBurst <= 10)
-            {
-                innacuracyMultiplier = maxInnacuracyMultiplier / 2;
-            }
-            else if (numShotsInBurst > 10)
-            {
-                innacuracyMultiplier = maxInnacuracyMultiplier;
+                case > 10:
+                    innacuracyMultiplier = maxInnacuracyMultiplier;
+                    break;
+                case > 5:
+                    innacuracyMultiplier = maxInnacuracyMultiplier / 2;
+                    break;
+                case > 2:
+                    innacuracyMultiplier = maxInnacuracyMultiplier / 3;
+                    break;
+                default:
+                    innacuracyMultiplier = 0;
+                    break;
             }
 
             if (!player.transform.GetComponent<CharacterController>().isGrounded && !isAccurateWhileJumping)
-                innacuracyMultiplier = (maxInnacuracyMultiplier * 2 > 0) ? (maxInnacuracyMultiplier * 2) : 2;
+                innacuracyMultiplier = maxInnacuracyMultiplier;
 
             float randX = Random.Range(0.01f * innacuracyMultiplier, -0.01f * innacuracyMultiplier);
             float randY = Random.Range(0.02f * innacuracyMultiplier, -0.01f * innacuracyMultiplier);
             DirectionRay = playerCam.transform.TransformDirection(randX, randY, 1);
 
+            if(laserLine != null)           
+                RenderShotTrail(true, 0, gunEnd.position.x, gunEnd.position.y, gunEnd.position.z);
+
             if (Physics.Raycast(rayOrigin, DirectionRay, out hit, range, ~Physics.IgnoreRaycastLayer))
             {
+                if(laserLine != null)
+                    RenderShotTrail(false, 1, hit.point.x, hit.point.y, hit.point.z);
+
                 Player damagedPlayer = hit.collider.GetComponentInParent<Player>();
 
                 bool headShot = hit.collider.tag.Equals("PlayerHead");
                 if (damagedPlayer != null)
                 {
-
-
                     float dmg = headShot ? headShotDamage : gunDamage;
                     if (dmg >= damagedPlayer.GetHealth())
                     {
                         player.SetKills(player.GetKills() + 1);
                         killmarkerAnim.SetTrigger("FlashDamage");
 
-
                         Vector3 deathPos = damagedPlayer.transform.position;
-                          
+                        Quaternion deathRot = damagedPlayer.transform.rotation;
+
+                        Vector3 deathForce = -hit.normal * 250;
+                        //GameObject deadPlayer = Instantiate(deadPlayerPrefab, deathPos, deathRot);
+                        //Destroy(deadPlayer, 10);
+                        StartCoroutine(SpawnRagdoll(deathPos, deathRot, deathForce));
+
                         StartCoroutine(DropWeapon(damagedPlayer.GetComponent<WeaponSwitcher>().activeWep, deathPos));
                     }
                     else
+                    {
                         hitmarkerAnim.SetTrigger("FlashDamage");
+                    }
                     damagedPlayer.GetComponent<PlayerHealth>().Damage(dmg);       
                 }
                 else if(bulletHole != null)
@@ -137,26 +147,45 @@ public class RaycastShoot : NetworkBehaviour
                     bulletHole.transform.up = hit.normal;
                     Destroy(decal, 5);
                 }
-            }    
+            }
+            else if (laserLine != null)
+            {
+                Vector3 endpos = rayOrigin + (DirectionRay * range);
+                RenderShotTrail(false, 1, endpos.x, endpos.y, endpos.z);
+            }
+
             timeOfLastShot = Time.time;
         }
 
-        if (laserLine != null && (Time.time > nextFire || fireRate < 0.1f))
+        if (laserLine != null && fireRate < 0.1f)
         {
             Vector3 rayOrigin = playerCam.ViewportToWorldPoint(new Vector3(.5f, .5f, 0));
             RaycastHit hit;
-            laserLine.SetPosition(0, gunEnd.position);
+            RenderShotTrail(false, 0, gunEnd.position.x, gunEnd.position.y, gunEnd.position.z);
             if (Physics.Raycast(rayOrigin, playerCam.transform.forward, out hit, range, ~Physics.IgnoreRaycastLayer))
-                laserLine.SetPosition(1, hit.point);
+            {
+                RenderShotTrail(false, 1, hit.point.x, hit.point.y, hit.point.z);
+            }
             else
-                laserLine.SetPosition(1, rayOrigin + (playerCam.transform.forward * range));
-
+            {
+                Vector3 endpos = rayOrigin + (playerCam.transform.forward * range);
+                RenderShotTrail(false,1, endpos.x, endpos.y, endpos.z);
+            }
         }
 
         if(!PauseMenu.GameIsPaused && canReloadWithR && Input.GetKeyDown(KeyCode.R) && !isReloading && (ammo < maxAmmo))
         {
             StartCoroutine(Reload());
         }
+    }
+
+    private IEnumerator SpawnRagdoll(Vector3 pos, Quaternion rot, Vector3 deathForce)
+    {
+        yield return new WaitForSeconds(0.01f);
+        Debug.Log("SPAWNING RAGDOLL");
+        GameObject deadPlayer = Instantiate(deadPlayerPrefab, pos, rot);
+        deadPlayer.GetComponent<Rigidbody>().AddForce(deathForce);
+        Destroy(deadPlayer, 10);
     }
 
     private IEnumerator DropWeapon(int wepDropIndex, Vector3 pos)
@@ -178,8 +207,6 @@ public class RaycastShoot : NetworkBehaviour
     {
         gunAudio.Play();
 
-        if (laserLine != null)
-            laserLine.enabled = true;
         if (muzzleFlash != null)
             muzzleFlash.SetActive(true);
 
@@ -192,8 +219,6 @@ public class RaycastShoot : NetworkBehaviour
 
         yield return shotDuration;
 
-        if (laserLine != null)
-            laserLine.enabled = false;
         if (muzzleFlash != null)
             muzzleFlash.SetActive(false);
     }
@@ -206,13 +231,18 @@ public class RaycastShoot : NetworkBehaviour
                 reloadSound.Play();
 
             yield return new WaitForSeconds(0.05f);
+
             if(ammo > 0)
                 if(recoilAnim != null)  
                     recoilAnim.SetTrigger("SlideBack");
+
             yield return new WaitForSeconds(0.5f);
+
             if (recoilAnim != null)
                 recoilAnim.SetTrigger("SlideForward");
+
             yield return new WaitForSeconds(0.3f);
+
             if (ammo < maxAmmo)
                 ammo = maxAmmo;
             else if (ammo < maxAmmo * 2)
@@ -223,4 +253,38 @@ public class RaycastShoot : NetworkBehaviour
             isReloading = false;
         }
     }
+
+    public void RenderShotTrail(bool enable, int posIndex, float x, float y, float z)
+    {
+        RenderShotTrailServerRpc(enable, posIndex, x, y, z);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RenderShotTrailServerRpc(bool enable, int posIndex, float x, float y, float z)
+    {
+        if(enable)
+            StartCoroutine(EnableAndDisableTrail());
+        if(laserLine != null)
+            laserLine.SetPosition(posIndex, new Vector3(x, y, z));
+        RenderShotTrailClientRpc(enable, posIndex, x, y, z);
+    }
+
+    [ClientRpc]
+    public void RenderShotTrailClientRpc(bool enable, int posIndex, float x, float y, float z)
+    {
+        if(enable)
+            StartCoroutine(EnableAndDisableTrail());
+        if (laserLine != null)
+            laserLine.SetPosition(posIndex, new Vector3(x, y, z));
+    }
+
+    private IEnumerator EnableAndDisableTrail()
+    {
+        if (laserLine != null)
+            laserLine.enabled = true;
+        yield return shotDuration;
+        if (laserLine != null)
+            laserLine.enabled = false;
+    }
+
 }

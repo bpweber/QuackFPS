@@ -62,7 +62,7 @@ public class WeaponSwitcher : NetworkBehaviour
 
     public void SwitchWeapon(int wep)
     {
-        if (Input.GetButton("Fire2"))
+        if (Input.GetButton("Fire2") && IsOwner)
         {
             zoomAnim.SetTrigger("ZoomOut");
             if (activeWep == 3)
