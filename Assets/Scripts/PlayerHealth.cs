@@ -46,38 +46,6 @@ public class PlayerHealth : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void DamageServerRpc(float damageAmt, Vector3 respawnLoc)
     {
-        if (!IsServer)
-        {
-            if (damageAmt >= player.GetHealth())
-            {
-                List<Renderer> renderers = new List<Renderer>();
-                foreach (Renderer rs in transform.GetComponentsInChildren<Renderer>())
-                {
-                    if (rs.enabled)
-                    {
-                        renderers.Add(rs);
-                        rs.enabled = false;
-                    }
-                }
-                List<Collider> colliders = new List<Collider>();
-                foreach (Collider cs in transform.GetComponentsInChildren<Collider>())
-                {
-                    if (cs.enabled)
-                    {
-                        colliders.Add(cs);
-                        cs.enabled = false;
-                    }
-                }
-                Debug.Log("DISABLED COLLIDERS - SERVER");
-                transform.GetComponent<CharacterController>().enabled = false;
-                transform.position = respawnLoc;
-                transform.LookAt(spawnList);
-                transform.GetComponent<CharacterController>().enabled = true;
-                StartCoroutine(ResetHealth(renderers, colliders));
-            }
-            else
-                player.SetHealth(player.GetHealth() - damageAmt);
-        }
         DamageClientRpc(damageAmt, respawnLoc);
     }
 
@@ -95,40 +63,29 @@ public class PlayerHealth : NetworkBehaviour
                     rs.enabled = false;
                 }
             }
-            List<Collider> colliders = new List<Collider>();
-            foreach (Collider cs in transform.GetComponentsInChildren<Collider>())
-            {
-                if (cs.enabled)
-                {
-                    colliders.Add(cs);
-                    cs.enabled = false;
-                }
-            }
-            Debug.Log("DISABLED COLLIDERS - CLIENT");
             transform.GetComponent<CharacterController>().enabled = false;            
             transform.position = respawnLoc;
             transform.LookAt(spawnList);
             transform.GetComponent<CharacterController>().enabled = true;
-            StartCoroutine(ResetHealth(renderers, colliders));
+            StartCoroutine(ResetHealth(renderers));
         }
         else
             player.SetHealth(player.GetHealth() - damageAmt);
     }
 
 
-    IEnumerator ResetHealth(List<Renderer> renderers, List<Collider> colliders)
+    IEnumerator ResetHealth(List<Renderer> renderers)
     {
         player.SetHealth(player.GetMaxHealth());
         player.SetDeaths(player.GetDeaths() + 1);
         displayHealth.FlashDamageIndicator(true);
+
         yield return new WaitForSeconds(0.5f);
+
         player.SetHealth(player.GetMaxHealth());
 
         foreach (Renderer rs in renderers)
             rs.enabled = true;
-        foreach (Collider cs in colliders)
-            cs.enabled = true;
-        Debug.Log("REENABLED COLLIDERS");
 
         RaycastShoot[] weps = player.GetItemInHand().transform.parent.GetComponentsInChildren<RaycastShoot>();
         weps[0].ammo = weps[0].maxAmmo;

@@ -4,7 +4,6 @@ using System.IO;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
 
 public class RaycastShoot : NetworkBehaviour
 {
@@ -129,8 +128,7 @@ public class RaycastShoot : NetworkBehaviour
                         Quaternion deathRot = damagedPlayer.transform.rotation;
 
                         Vector3 deathForce = -hit.normal * 250;
-                        //GameObject deadPlayer = Instantiate(deadPlayerPrefab, deathPos, deathRot);
-                        //Destroy(deadPlayer, 10);
+
                         StartCoroutine(SpawnRagdoll(deathPos, deathRot, deathForce));
 
                         StartCoroutine(DropWeapon(damagedPlayer.GetComponent<WeaponSwitcher>().activeWep, deathPos));
@@ -181,10 +179,12 @@ public class RaycastShoot : NetworkBehaviour
 
     private IEnumerator SpawnRagdoll(Vector3 pos, Quaternion rot, Vector3 deathForce)
     {
-        yield return new WaitForSeconds(0.01f);
-        Debug.Log("SPAWNING RAGDOLL");
         GameObject deadPlayer = Instantiate(deadPlayerPrefab, pos, rot);
         deadPlayer.GetComponent<Rigidbody>().AddForce(deathForce);
+        yield return new WaitForSeconds(0.1f);
+        foreach (Collider cs in deadPlayer.GetComponentsInChildren<Collider>())       
+            if (!cs.enabled)       
+                cs.enabled = true;    
         Destroy(deadPlayer, 10);
     }
 
@@ -262,10 +262,6 @@ public class RaycastShoot : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void RenderShotTrailServerRpc(bool enable, int posIndex, float x, float y, float z)
     {
-        if(enable)
-            StartCoroutine(EnableAndDisableTrail());
-        if(laserLine != null)
-            laserLine.SetPosition(posIndex, new Vector3(x, y, z));
         RenderShotTrailClientRpc(enable, posIndex, x, y, z);
     }
 

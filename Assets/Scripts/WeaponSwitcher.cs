@@ -42,6 +42,8 @@ public class WeaponSwitcher : NetworkBehaviour
 
         crosshair.enabled = activeWep != 3;
 
+        if(Input.GetKeyDown(KeyCode.Escape) && Input.GetButton("Fire2") && PauseMenu.GameIsPaused)
+            ResetZoom();
 
         if (Input.GetKeyDown(KeyCode.Alpha1))       
             if (!isSwitching && activeWep != 0 && hasPickedUp[0])
@@ -60,13 +62,20 @@ public class WeaponSwitcher : NetworkBehaviour
                 SwitchWeapon(4);
     }
 
+    public void ResetZoom()
+    {
+        if (!IsOwner)
+            return;
+        zoomAnim.SetTrigger("ZoomOut");
+        if (activeWep == 3)
+            scopeAnim.SetTrigger("UnScope");
+    }
+
     public void SwitchWeapon(int wep)
     {
         if (Input.GetButton("Fire2") && IsOwner)
         {
-            zoomAnim.SetTrigger("ZoomOut");
-            if (activeWep == 3)
-                scopeAnim.SetTrigger("UnScope");
+            ResetZoom();
         }
         SwitchWeaponServerRpc(wep);
     }

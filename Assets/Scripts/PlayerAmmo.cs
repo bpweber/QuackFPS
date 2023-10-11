@@ -30,6 +30,8 @@ public class PlayerAmmo : MonoBehaviour
             powerupRespawnTimer = float.MaxValue;
         if (powerupEnabled)
         {
+            if (other.GetComponent<Player>() == null)
+                return;
             other.GetComponent<WeaponSwitcher>().hasPickedUp[wepIndex] = true;
             wepHolder = other.GetComponent<Player>().GetItemInHand().transform.parent;
             rcs = wepHolder.GetChild(wepIndex).GetComponent<RaycastShoot>();

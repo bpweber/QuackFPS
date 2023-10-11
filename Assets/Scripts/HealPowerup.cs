@@ -24,6 +24,8 @@ public class HealPowerup : MonoBehaviour
     {
         if(powerupEnabled)
         {
+            if (other.GetComponent<Player>() == null)
+                return;
             player = other.GetComponent<Player>();
             if (player.GetHealth() >= player.GetMaxHealth() * 1.5f)
                 return;
