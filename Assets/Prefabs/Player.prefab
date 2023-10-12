@@ -6860,7 +6860,7 @@ MonoBehaviour:
   gunAudio: {fileID: 260500044795005078}
   reloadSound: {fileID: 3316687576465188876}
   dryFire: {fileID: 795655624522288154}
-  recoilAnim: {fileID: 9090298955150079793}
+  recoilAnim: {fileID: 0}
   hitmarkerAnim: {fileID: 7844851562090388885}
   killmarkerAnim: {fileID: 3459478232847666386}
   lgDropPrefab: {fileID: 3471777715960101983, guid: 53a256a9daa5c074eb850bc648b19929, type: 3}
