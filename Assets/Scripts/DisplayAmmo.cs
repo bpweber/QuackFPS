@@ -11,6 +11,7 @@ public class DisplayAmmo : NetworkBehaviour
     private WeaponSwitcher weaponSwitcher;
     private TMP_Text ammoText;
     private Image gunImg;
+    private Image railImg;
     private Image awpImg;
     private Image engImg;
     private Color defaultColor;
@@ -25,13 +26,15 @@ public class DisplayAmmo : NetworkBehaviour
         }
         ammoText = GetComponent<TMP_Text>();
         gunImg = ammoText.transform.GetChild(0).GetComponent<Image>();
-        awpImg = ammoText.transform.GetChild(1).GetComponent<Image>();
-        engImg = ammoText.transform.GetChild(2).GetComponent<Image>();
+        railImg = ammoText.transform.GetChild(1).GetComponent<Image>();
+        awpImg = ammoText.transform.GetChild(2).GetComponent<Image>();
+        engImg = ammoText.transform.GetChild(3).GetComponent<Image>();
         defaultColor = ammoText.color;
         if (!IsOwner)
         {
             ammoText.enabled = false;
             gunImg.enabled = false;
+            railImg.enabled = false;
             awpImg.enabled = false;
             engImg.enabled = false;
         }
@@ -41,10 +44,11 @@ public class DisplayAmmo : NetworkBehaviour
     {
         if (!IsOwner)
             return;
-        awpImg.enabled = weaponSwitcher.activeWep == 3;
-        gunImg.enabled = weaponSwitcher.activeWep < 3;
-        engImg.enabled = weaponSwitcher.activeWep == 4;
 
+        gunImg.enabled = weaponSwitcher.activeWep < 2;
+        railImg.enabled = weaponSwitcher.activeWep == 2;
+        awpImg.enabled = weaponSwitcher.activeWep == 3;
+        engImg.enabled = weaponSwitcher.activeWep == 4;
 
         ammoText.enabled = weaponSwitcher.activeWep != 4;
 
@@ -54,12 +58,14 @@ public class DisplayAmmo : NetworkBehaviour
         {
             ammoText.color = Color.red;
             gunImg.color = Color.red;
+            railImg.color = Color.red;
             awpImg.color = Color.red;
         }
         else
         {
             ammoText.color = defaultColor;
             gunImg.color = defaultColor;
+            railImg.color = defaultColor;
             awpImg.color = defaultColor;
         }
     }
