@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wepIndex: 2
   powerupRespawnTimer: 1
-  oneTimeUse: 0
+  oneTimeUse: 1
   nextPowerupTime: 0
 --- !u!95 &649595537213930166
 Animator:
