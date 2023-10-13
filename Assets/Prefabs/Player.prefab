@@ -5298,7 +5298,7 @@ PrefabInstance:
     - target: {fileID: 4016964629268836317, guid: 157398e30b987d542abfbb395efc1a09, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c5d2dc0d2cd606541ab3cf3b438ffc4c, type: 2}
+      objectReference: {fileID: 2100000, guid: 48f91ed6fa9b28c4cbfcda5d4c0f64cb, type: 2}
     - target: {fileID: 5104592442467354198, guid: 157398e30b987d542abfbb395efc1a09, type: 3}
       propertyPath: m_Name
       value: RailReciever
@@ -6354,9 +6354,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d29ec64034e9d4a48bbb7c8cd9e56e42, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3f5c71302760e4040a6d9d2182286a96, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.75
+  m_Volume: 0.85
   m_Pitch: 0.85
   Loop: 0
   Mute: 0
@@ -6755,7 +6755,7 @@ PrefabInstance:
     - target: {fileID: 2954542022592564151, guid: 38496cbf9bf661c4aa51175a4b3932f9, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 48f91ed6fa9b28c4cbfcda5d4c0f64cb, type: 2}
+      objectReference: {fileID: 2100000, guid: c5d2dc0d2cd606541ab3cf3b438ffc4c, type: 2}
     - target: {fileID: 7105991346593180062, guid: 38496cbf9bf661c4aa51175a4b3932f9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0167
@@ -6876,7 +6876,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d29ec64034e9d4a48bbb7c8cd9e56e42, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d0bca7734335fc840b20f3efcb878ee9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.6
   m_Pitch: 0.9

@@ -2056,7 +2056,7 @@ PrefabInstance:
     - target: {fileID: 3005303215686706769, guid: ed7e1bf77f9ce0c4c985af3d80570757, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 48f91ed6fa9b28c4cbfcda5d4c0f64cb, type: 2}
+      objectReference: {fileID: 2100000, guid: c5d2dc0d2cd606541ab3cf3b438ffc4c, type: 2}
     - target: {fileID: 7417805696271970857, guid: ed7e1bf77f9ce0c4c985af3d80570757, type: 3}
       propertyPath: oneTimeUse
       value: 0
@@ -2064,7 +2064,7 @@ PrefabInstance:
     - target: {fileID: 7741408403037600976, guid: ed7e1bf77f9ce0c4c985af3d80570757, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c5d2dc0d2cd606541ab3cf3b438ffc4c, type: 2}
+      objectReference: {fileID: 2100000, guid: 48f91ed6fa9b28c4cbfcda5d4c0f64cb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6419,6 +6419,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791253347}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &800793131 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5635573262345930151, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
+  m_PrefabInstance: {fileID: 878914851}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &804387390
 GameObject:
   m_ObjectHideFlags: 0
@@ -7099,9 +7110,29 @@ PrefabInstance:
       value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 6015924186700658349, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
+      propertyPath: sensSlider
+      value: 
+      objectReference: {fileID: 1483703055}
+    - target: {fileID: 6015924186700658349, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
+      propertyPath: volumeSLider
+      value: 
+      objectReference: {fileID: 800793131}
+    - target: {fileID: 6015924186700658349, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
+      propertyPath: volumeSlider
+      value: 
+      objectReference: {fileID: 800793131}
+    - target: {fileID: 6015924186700658349, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
       propertyPath: zoomSensText
       value: 
       objectReference: {fileID: 1790236463}
+    - target: {fileID: 6015924186700658349, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
+      propertyPath: zoomSensSlider
+      value: 
+      objectReference: {fileID: 1468350395}
+    - target: {fileID: 6015924186700658349, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
+      propertyPath: framerateSlider
+      value: 
+      objectReference: {fileID: 1282491930}
     - target: {fileID: 6656609776160972694, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -10785,6 +10816,17 @@ Transform:
   - {fileID: 1356418667}
   m_Father: {fileID: 1336389137}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1282491930 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8378992383621993984, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
+  m_PrefabInstance: {fileID: 878914851}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1305455840
 GameObject:
   m_ObjectHideFlags: 0
@@ -12284,6 +12326,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1483703055 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8893255916985258523, guid: 0ba908e9e090a7f479a78817aa29e0ca, type: 3}
+  m_PrefabInstance: {fileID: 878914851}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1488887892
 GameObject:
   m_ObjectHideFlags: 0
