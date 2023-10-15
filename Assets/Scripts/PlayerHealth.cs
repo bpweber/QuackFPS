@@ -89,9 +89,16 @@ public class PlayerHealth : NetworkBehaviour
 
         RaycastShoot[] weps = player.GetItemInHand().transform.parent.GetComponentsInChildren<RaycastShoot>();
         weps[0].ammo = weps[0].maxAmmo;
-        for(int i = 1; i < weps.Length; i++)       
+        for(int i = 1; i < weps.Length; i++)
+        {
             weps[i].ammo = 0;
+            if (weps[i].laserLine != null)
+            {
+                weps[i].laserLine.enabled = false;
+            }
+        }  
         weps[4].ammo = weps[4].maxAmmo;
+
 
         WeaponSwitcher weaponSwitcher = player.GetComponent<WeaponSwitcher>();
         if(weaponSwitcher.activeWep != 0)

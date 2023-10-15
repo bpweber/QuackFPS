@@ -29,10 +29,10 @@ public class RaycastShoot : NetworkBehaviour
     public GameObject lgDropPrefab;
     public GameObject railDropPrefab;
     public GameObject deadPlayerPrefab;
+    public LineRenderer laserLine;
 
     private Player player;
     private GameObject muzzleFlash;
-    private LineRenderer laserLine;
     private WaitForSeconds shotDuration = new WaitForSeconds(.05f);
     private float nextFire;
     private float timeOfLastShot = 0;
@@ -256,6 +256,13 @@ public class RaycastShoot : NetworkBehaviour
 
     public void RenderShotTrail(bool enable, int posIndex, float x, float y, float z)
     {
+        if(IsOwner)
+        {
+            if (enable)
+                StartCoroutine(EnableAndDisableTrail());
+            if (laserLine != null)
+                laserLine.SetPosition(posIndex, new Vector3(x, y, z));
+        }
         RenderShotTrailServerRpc(enable, posIndex, x, y, z);
     }
 
@@ -268,10 +275,13 @@ public class RaycastShoot : NetworkBehaviour
     [ClientRpc]
     public void RenderShotTrailClientRpc(bool enable, int posIndex, float x, float y, float z)
     {
-        if(enable)
-            StartCoroutine(EnableAndDisableTrail());
-        if (laserLine != null)
-            laserLine.SetPosition(posIndex, new Vector3(x, y, z));
+        if(!IsOwner)
+        {
+            if (enable)
+                StartCoroutine(EnableAndDisableTrail());
+            if (laserLine != null)
+                laserLine.SetPosition(posIndex, new Vector3(x, y, z));
+        }
     }
 
     private IEnumerator EnableAndDisableTrail()
