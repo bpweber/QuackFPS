@@ -66,6 +66,7 @@ public class PlayerHealth : NetworkBehaviour
             transform.GetComponent<CharacterController>().enabled = false;            
             transform.position = respawnLoc;
             transform.LookAt(spawnList);
+            transform.rotation = Quaternion.Euler(0, transform.position.y, 0);
             transform.GetComponent<CharacterController>().enabled = true;
             StartCoroutine(ResetHealth(renderers));
         }

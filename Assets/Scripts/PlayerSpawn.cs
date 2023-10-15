@@ -14,6 +14,7 @@ public class PlayerSpawn : NetworkBehaviour
         transform.GetComponent<CharacterController>().enabled = false;
         transform.position = spawnList.GetChild(randSpawnNum).position;
         transform.LookAt(spawnList);
+        transform.rotation = Quaternion.Euler(0, transform.position.y, 0);
         transform.GetComponent<CharacterController>().enabled = true;
 
         base.OnNetworkSpawn();
