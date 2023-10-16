@@ -99,8 +99,10 @@ public class WeaponSwitcher : NetworkBehaviour
         yield return new WaitForSeconds(0.5f);
         DeselectAllWeapons();
         activeWep = wepIndex;
-        weps[wepIndex].GetComponent<Renderer>().enabled = true;
-        weps[wepIndex].transform.GetChild(0).GetComponent<Renderer>().enabled = true;
+        foreach (Renderer r in weps[wepIndex].GetComponentsInChildren<Renderer>())
+            r.enabled = true;
+        //weps[wepIndex].GetComponent<Renderer>().enabled = true;
+       // weps[wepIndex].transform.GetChild(0).GetComponent<Renderer>().enabled = true;
         weps[wepIndex].GetComponent<RaycastShoot>().enabled = true;
         isSwitching = false;
     }
@@ -109,8 +111,10 @@ public class WeaponSwitcher : NetworkBehaviour
     {
         foreach (GameObject wep in weps)
         {
-            wep.GetComponent<Renderer>().enabled = false;
-            wep.transform.GetChild(0).GetComponent<Renderer>().enabled = false;
+            foreach (Renderer r in wep.GetComponentsInChildren<Renderer>())
+                r.enabled = false;
+            //wep.GetComponent<Renderer>().enabled = false;
+            //wep.transform.GetChild(0).GetComponent<Renderer>().enabled = false;
             wep.GetComponent<RaycastShoot>().enabled = false;
         }
     }
