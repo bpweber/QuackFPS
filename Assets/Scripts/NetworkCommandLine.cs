@@ -34,6 +34,7 @@ public class NetworkCommandLine : MonoBehaviour
                     break;
             }
         }
+        netManager.StartHost();
     }
 
     private Dictionary<string, string> GetCommandlineArgs()
