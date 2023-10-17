@@ -13,8 +13,7 @@ public class PlayerSpawn : NetworkBehaviour
         int randSpawnNum = Random.Range(0, spawnList.childCount);
         transform.GetComponent<CharacterController>().enabled = false;
         transform.position = spawnList.GetChild(randSpawnNum).position;
-        transform.LookAt(spawnList);
-        transform.rotation = Quaternion.Euler(0, transform.position.y, 0);
+        transform.LookAt(new Vector3(spawnList.position.x, transform.position.y, spawnList.position.z));
         transform.GetComponent<CharacterController>().enabled = true;
 
         base.OnNetworkSpawn();
