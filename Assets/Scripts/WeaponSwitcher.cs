@@ -11,15 +11,16 @@ public class WeaponSwitcher : NetworkBehaviour
 
     public GameObject G19;
     public GameObject LG;
+    public GameObject Shotty;
     public GameObject Rail;
     public GameObject AWP;
     public GameObject EngSword;
-    public bool[] hasPickedUp = new bool[5];
+    public bool[] hasPickedUp = new bool[6];
     public Image crosshair;
     public Animator zoomAnim;
     public Animator scopeAnim;
 
-    private GameObject[] weps = new GameObject[5];
+    private GameObject[] weps = new GameObject[6];
     public bool isSwitching = false;
 
     private void Start()
@@ -28,19 +29,21 @@ public class WeaponSwitcher : NetworkBehaviour
 
         weps[0] = G19;
         weps[1] = LG;
-        weps[2] = Rail;
-        weps[3] = AWP;
-        weps[4] = EngSword;
+        weps[2] = Shotty;
+        weps[3] = Rail;
+        weps[4] = AWP;
+        weps[5] = EngSword;
 
         hasPickedUp[0] = true;
-        hasPickedUp[4] = true;
+        hasPickedUp[2] = true;
+        hasPickedUp[5] = true;
     }
 
     void Update()
     {
         if (!IsOwner) return;
 
-        crosshair.enabled = activeWep != 3;
+        crosshair.enabled = activeWep != 4;
 
         if(Input.GetKeyDown(KeyCode.Escape) && Input.GetButton("Fire2") && PauseMenu.GameIsPaused)
             ResetZoom();
@@ -57,9 +60,12 @@ public class WeaponSwitcher : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4))
             if (!isSwitching && activeWep != 3 && hasPickedUp[3])
                 SwitchWeapon(3);
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Alpha5))
             if (!isSwitching && activeWep != 4 && hasPickedUp[4])
                 SwitchWeapon(4);
+        if (Input.GetKeyDown(KeyCode.Q))
+            if (!isSwitching && activeWep != 5 && hasPickedUp[5])
+                SwitchWeapon(5);
     }
 
     public void ResetZoom()
@@ -67,7 +73,7 @@ public class WeaponSwitcher : NetworkBehaviour
         if (!IsOwner)
             return;
         zoomAnim.SetTrigger("ZoomOut");
-        if (activeWep == 3)
+        if (activeWep == 4)
             scopeAnim.SetTrigger("UnScope");
     }
 
@@ -101,7 +107,10 @@ public class WeaponSwitcher : NetworkBehaviour
         activeWep = wepIndex;
         foreach (Renderer r in weps[wepIndex].GetComponentsInChildren<MeshRenderer>())
             r.enabled = true;
-        weps[wepIndex].GetComponent<RaycastShoot>().enabled = true;
+        if(weps[wepIndex].GetComponent<RaycastShoot>() != null)
+            weps[wepIndex].GetComponent<RaycastShoot>().enabled = true;
+        if (weps[wepIndex].GetComponent<ShotgunShoot>() != null)
+            weps[wepIndex].GetComponent<ShotgunShoot>().enabled = true;
         isSwitching = false;
     }
 
@@ -111,7 +120,11 @@ public class WeaponSwitcher : NetworkBehaviour
         {
             foreach (Renderer r in wep.GetComponentsInChildren<MeshRenderer>())
                 r.enabled = false;
-            wep.GetComponent<RaycastShoot>().enabled = false;
+            //wep.GetComponent<RaycastShoot>().enabled = false;
+            if (wep.GetComponent<RaycastShoot>() != null)
+                wep.GetComponent<RaycastShoot>().enabled = false;
+            if (wep.GetComponent<ShotgunShoot>() != null)
+                wep.GetComponent<ShotgunShoot>().enabled = false;
         }
     }
 }

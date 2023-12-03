@@ -96,7 +96,8 @@ public class PlayerHealth : NetworkBehaviour
             {
                 weps[i].laserLine.enabled = false;
             }
-        }  
+        }
+        weps[2].ammo = weps[2].maxAmmo;
         weps[4].ammo = weps[4].maxAmmo;
 
 
@@ -104,8 +105,8 @@ public class PlayerHealth : NetworkBehaviour
         if(weaponSwitcher.activeWep != 0)
             weaponSwitcher.SwitchWeapon(0);
         weaponSwitcher.hasPickedUp[1] = false;
-        weaponSwitcher.hasPickedUp[2] = false;
         weaponSwitcher.hasPickedUp[3] = false;
+        weaponSwitcher.hasPickedUp[4] = false;
 
         foreach (RaycastShoot rcs in player.GetItemInHand().transform.parent.GetComponentsInChildren<RaycastShoot>())      
             if(rcs.recoilAnim != null)

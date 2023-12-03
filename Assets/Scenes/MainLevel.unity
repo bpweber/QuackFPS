@@ -2058,6 +2058,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: c5d2dc0d2cd606541ab3cf3b438ffc4c, type: 2}
     - target: {fileID: 7417805696271970857, guid: ed7e1bf77f9ce0c4c985af3d80570757, type: 3}
+      propertyPath: wepIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417805696271970857, guid: ed7e1bf77f9ce0c4c985af3d80570757, type: 3}
       propertyPath: oneTimeUse
       value: 0
       objectReference: {fileID: 0}
@@ -17635,6 +17639,10 @@ PrefabInstance:
     - target: {fileID: 285006639594342441, guid: 7cfa72b4f7d77834d92025c8d75ff920, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1546019687529457009, guid: 7cfa72b4f7d77834d92025c8d75ff920, type: 3}
+      propertyPath: wepIndex
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1546019687529457009, guid: 7cfa72b4f7d77834d92025c8d75ff920, type: 3}
       propertyPath: powerupRespawnTimer

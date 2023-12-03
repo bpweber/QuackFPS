@@ -196,7 +196,7 @@ public class RaycastShoot : NetworkBehaviour
             GameObject wepDrop = Instantiate(lgDropPrefab, pos, Quaternion.identity);
             Destroy(wepDrop, 10);
         }
-        else if (wepDropIndex == 2)
+        else if (wepDropIndex == 3)
         {
             GameObject wepDrop = Instantiate(railDropPrefab, pos, Quaternion.identity);
             Destroy(wepDrop, 10);

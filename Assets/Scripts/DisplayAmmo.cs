@@ -16,6 +16,7 @@ public class DisplayAmmo : NetworkBehaviour
     private Image engImg;
     private Color defaultColor;
     private RaycastShoot rcs;
+    private ShotgunShoot sgs;
 
     void Start()
     {
@@ -46,27 +47,52 @@ public class DisplayAmmo : NetworkBehaviour
             return;
 
         gunImg.enabled = weaponSwitcher.activeWep < 2;
-        railImg.enabled = weaponSwitcher.activeWep == 2;
-        awpImg.enabled = weaponSwitcher.activeWep == 3;
-        engImg.enabled = weaponSwitcher.activeWep == 4;
+        railImg.enabled = (weaponSwitcher.activeWep == 2 || weaponSwitcher.activeWep == 3);
+        awpImg.enabled = weaponSwitcher.activeWep == 4;
+        engImg.enabled = weaponSwitcher.activeWep == 5;
 
-        ammoText.enabled = weaponSwitcher.activeWep != 4;
+        ammoText.enabled = weaponSwitcher.activeWep != 5;
 
-        rcs = player.GetItemInHand().GetComponent<RaycastShoot>();
-        ammoText.SetText($"{rcs.ammo}");
-        if (rcs.ammo <= (0.25 * (float) rcs.maxAmmo))
+        if (player.GetItemInHand().GetComponent<RaycastShoot>() != null)
         {
-            ammoText.color = Color.red;
-            gunImg.color = Color.red;
-            railImg.color = Color.red;
-            awpImg.color = Color.red;
+            rcs = player.GetItemInHand().GetComponent<RaycastShoot>();
+
+            ammoText.SetText($"{rcs.ammo}");
+            if (rcs.ammo <= (0.25 * (float)rcs.maxAmmo))
+            {
+                ammoText.color = Color.red;
+                gunImg.color = Color.red;
+                railImg.color = Color.red;
+                awpImg.color = Color.red;
+            }
+            else
+            {
+                ammoText.color = defaultColor;
+                gunImg.color = defaultColor;
+                railImg.color = defaultColor;
+                awpImg.color = defaultColor;
+            }
+            
         }
-        else
+        if (player.GetItemInHand().GetComponent<ShotgunShoot>() != null)
         {
-            ammoText.color = defaultColor;
-            gunImg.color = defaultColor;
-            railImg.color = defaultColor;
-            awpImg.color = defaultColor;
-        }
+            sgs = player.GetItemInHand().GetComponent<ShotgunShoot>();
+
+            ammoText.SetText($"{sgs.ammo}");
+            if (sgs.ammo <= (0.25 * (float)sgs.maxAmmo))
+            {
+                ammoText.color = Color.red;
+                gunImg.color = Color.red;
+                railImg.color = Color.red;
+                awpImg.color = Color.red;
+            }
+            else
+            {
+                ammoText.color = defaultColor;
+                gunImg.color = defaultColor;
+                railImg.color = defaultColor;
+                awpImg.color = defaultColor;
+            }
+        }    
     }
 }

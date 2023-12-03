@@ -59,7 +59,7 @@ public class MouseLook : NetworkBehaviour
             if (Input.GetButtonDown("Fire2") && !weaponSwitcher.isSwitching)
             {
                 anim.SetTrigger("ZoomIn");
-                if(playerBody.GetComponent<WeaponSwitcher>().activeWep == 3)
+                if(playerBody.GetComponent<WeaponSwitcher>().activeWep == 4)
                     scopeAnim.SetTrigger("Scope");
                 effectiveSens = mouseSensitivity * zoomSens;
                 zoomed = true;
@@ -67,7 +67,7 @@ public class MouseLook : NetworkBehaviour
             else if(Input.GetButtonUp("Fire2") && zoomed)
             {
                 anim.SetTrigger("ZoomOut");
-                if (playerBody.GetComponent<WeaponSwitcher>().activeWep == 3)
+                if (playerBody.GetComponent<WeaponSwitcher>().activeWep == 4)
                     scopeAnim.SetTrigger("UnScope");
                 effectiveSens = mouseSensitivity;
                 zoomed = false;

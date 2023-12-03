@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2242e4deefd61854cbd41100204b1304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wepIndex: 3
+  wepIndex: 4
   powerupRespawnTimer: 5
   oneTimeUse: 0
   nextPowerupTime: 0
